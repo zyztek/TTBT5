@@ -4,9 +4,7 @@ Command module for the TTBT5 Application.
 This module handles command processing for the application.
 """
 
-from typing import Dict, Callable, List
-from src.config import get_config
-from src.logger import get_logger
+from typing import Dict, Callable, List, Optional
 
 class CommandProcessor:
     """Process commands for the TTBT5 Application."""
@@ -14,10 +12,10 @@ class CommandProcessor:
     def __init__(self, logger):
         """Initialize the command processor."""
         self.logger = logger
-        self.commands = {}
-        self.aliases = {}
+        self.commands: Dict[str, Callable] = {}
+        self.aliases: Dict[str, str] = {}
     
-    def register_command(self, name: str, func: Callable, alias: List[str] = None):
+    def register_command(self, name: str, func: Callable, alias: Optional[List[str]] = None):
         """Register a command."""
         self.commands[name] = func
         if alias:
