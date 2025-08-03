@@ -14,10 +14,10 @@ class Config:
     def __init__(self, config_file: str = "config.json"):
         """Initialize the configuration."""
         self.config_file = config_file
-        self.config = {}
+        self.config: Dict[str, Any] = {}
         self.load_config()
     
-    def load_config(self):
+    def load_config(self) -> None:
         """Load configuration from file."""
         if os.path.exists(self.config_file):
             try:
@@ -40,7 +40,7 @@ class Config:
             "features": ["core"]
         }
     
-    def save_config(self):
+    def save_config(self) -> None:
         """Save configuration to file."""
         try:
             with open(self.config_file, 'w') as f:
@@ -52,20 +52,20 @@ class Config:
         """Get a configuration value."""
         return self.config.get(key, default)
     
-    def set(self, key: str, value: Any):
+    def set(self, key: str, value: Any) -> None:
         """Set a configuration value."""
         self.config[key] = value
         self.save_config()
     
-    def update(self, updates: Dict[str, Any]):
+    def update(self, updates: Dict[str, Any]) -> None:
         """Update multiple configuration values."""
         self.config.update(updates)
         self.save_config()
 
 # Global config instance
-_app_config = None
+_app_config: Optional[Config] = None
 
-def get_config():
+def get_config() -> Config:
     """Get the application configuration instance."""
     global _app_config
     if _app_config is None:
