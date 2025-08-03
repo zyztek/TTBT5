@@ -22,6 +22,7 @@ setup(
             'ttbt5=src.main:main',
         ],
     },
+    package_dir={'': '.'},
     python_requires='>=3.6',
     install_requires=requirements,
     tests_require=[
