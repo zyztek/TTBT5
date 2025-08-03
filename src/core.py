@@ -92,13 +92,17 @@ For more information, please refer to the documentation.
     
     def get_info(self) -> Dict:
         """Get detailed application information."""
-        return {
+        info = {
             "name": self.config.get("app_name"),
             "version": self.config.get("version"),
             "features": self.state.features,
             "start_time": self.state.start_time.isoformat(),
             "status": "running"
         }
+        print("Application Information:")
+        for key, value in info.items():
+            print(f"  {key}: {value}")
+        return info
     
     def run_command(self, command: str, *args, **kwargs):
         """Run a command."""
