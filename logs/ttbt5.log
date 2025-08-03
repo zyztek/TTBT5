@@ -308,3 +308,9 @@
 2025-08-03 21:38:16.875 | INFO     | src.core:__init__:40 - Configuration loaded
 2025-08-03 21:38:16.875 | INFO     | src.core:__init__:48 - Plugin manager initialized
 2025-08-03 21:38:16.875 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:38:33.675 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:38:33.676 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:38:33.676 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:38:33.676 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:38:33.676 | INFO     | src.core:run_command:151 - Executing command: status
+2025-08-03 21:38:33.676 | INFO     | src.core:run_command:153 - Command status executed successfully
