@@ -23,7 +23,7 @@ def main():
             app.run_command(command, *args)
         else:
             print("Application started successfully.")
-            print("Available commands: status, help, config")
+            print("Available commands: status, help, config, info")
             print("Use 'ttbt5 <command>' to run a specific command.")
         
         return 0

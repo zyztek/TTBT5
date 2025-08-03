@@ -55,6 +55,7 @@ class TTBT5App:
         self.command_processor.register_command("status", self.get_status)
         self.command_processor.register_command("help", self.show_help, ["h", "?"])
         self.command_processor.register_command("config", self.show_config)
+        self.command_processor.register_command("info", self.get_info)
     
     def get_status(self) -> Dict:
         """Get the current application status."""
@@ -88,6 +89,16 @@ For more information, please refer to the documentation.
         for key, value in config_data.items():
             print(f"  {key}: {value}")
         return config_data
+    
+    def get_info(self) -> Dict:
+        """Get detailed application information."""
+        return {
+            "name": self.config.get("app_name"),
+            "version": self.config.get("version"),
+            "features": self.state.features,
+            "start_time": self.state.start_time.isoformat(),
+            "status": "running"
+        }
     
     def run_command(self, command: str, *args, **kwargs):
         """Run a command."""
