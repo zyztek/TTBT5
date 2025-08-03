@@ -6,12 +6,12 @@ This module handles command processing for the application.
 
 from typing import Dict, Callable, List
 from src.config import get_config
-from src.logger import Logger
+from src.logger import get_logger
 
 class CommandProcessor:
     """Process commands for the TTBT5 Application."""
     
-    def __init__(self, logger: Logger):
+    def __init__(self, logger):
         """Initialize the command processor."""
         self.logger = logger
         self.commands = {}
