@@ -11,8 +11,12 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from src.config import get_config
-from src.logger import Logger, get_logger
+from src.logger import get_logger
 from src.commands import CommandProcessor
+from ttbt2_source.core.plugin_manager import PluginManager
+from datetime import datetime
+from typing import Dict, List
+from dataclasses import dataclass
 
 @dataclass
 class ApplicationState:
@@ -42,6 +46,10 @@ class TTBT5App:
         self.command_processor = CommandProcessor(self.logger)
         self.register_commands()
         
+        # Initialize plugin manager
+        self.plugin_manager = PluginManager()
+        self.logger.info("Plugin manager initialized")
+        
         # Initialize state
         self.state = ApplicationState(
             start_time=datetime.now(),
@@ -56,6 +64,8 @@ class TTBT5App:
         self.command_processor.register_command("help", self.show_help, ["h", "?"])
         self.command_processor.register_command("config", self.show_config)
         self.command_processor.register_command("info", self.get_info)
+        self.command_processor.register_command("load_plugin", self.load_plugin)
+        self.command_processor.register_command("exec_hook", self.execute_hook)
     
     def get_status(self) -> Dict:
         """Get the current application status."""
@@ -76,6 +86,8 @@ Available commands:
 - status: Show application status
 - help: Show this help message
 - config: Show current configuration
+- load_plugin <path>: Load a plugin from the specified file path
+- exec_hook <hook_name> [args...]: Execute a plugin hook by name with optional arguments
 
 For more information, please refer to the documentation.
         """
@@ -104,6 +116,20 @@ For more information, please refer to the documentation.
             print(f"  {key}: {value}")
         return info
     
+    def load_plugin(self, plugin_path: str):
+        """Load a plugin from the given file path."""
+        self.logger.info(f"Loading plugin from {plugin_path}")
+        self.plugin_manager.load_plugin(plugin_path)
+        self.logger.info(f"Plugin loaded from {plugin_path}")
+        return f"Plugin loaded from {plugin_path}"
+    
+    def execute_hook(self, hook_name: str, *args):
+        """Execute a plugin hook by name with optional arguments."""
+        self.logger.info(f"Executing hook {hook_name} with args {args}")
+        result = self.plugin_manager.execute_hook(hook_name, *args)
+        self.logger.info(f"Hook {hook_name} executed with result: {result}")
+        return result
+    
     def run_command(self, command: str, *args, **kwargs):
         """Run a command."""
         try:
@@ -120,4 +146,4 @@ if __name__ == "__main__":
     print("TTBT5 Application")
     print("Status:", "Running" if True else "Stopped")
     print("Please provide the TTBT2 requirements to implement the full application")
-    print("Available commands: status, help, config")
+    print("Available commands: status, help, config, load_plugin, exec_hook")
