@@ -6,5 +6,13 @@
         "grafana_plugins_growth.png",
         "coverage_badge.png",
         "architecture.png"
-    ]
+    ],
+    "editor.inlineSuggest.enabled": true,
+    "editor.quickSuggestions": {
+        "other": "inline",
+        "comments": true,
+        "strings": true
+    },
+    "editor.quickSuggestionsDelay": 100,
+    "autoGitCopilot.enabled": true
 }
