@@ -412,3 +412,9 @@
 2025-08-03 21:47:56.844 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
 2025-08-03 21:47:56.844 | INFO     | src.core:run_command:151 - Executing command: mint_nft
 2025-08-03 21:47:56.846 | INFO     | src.core:run_command:153 - Command mint_nft executed successfully
+2025-08-03 21:48:11.570 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:48:11.571 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:48:11.571 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:48:11.571 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:48:11.571 | INFO     | src.core:run_command:151 - Executing command: transcribe_audio
+2025-08-03 21:48:11.572 | INFO     | src.core:run_command:153 - Command transcribe_audio executed successfully
