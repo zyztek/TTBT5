@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appendices &mdash; TTBT2 2.4.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4d935f96"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Roadmap Future" href="roadmap_future.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TTBT2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="executive_summary.html">Executive Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical_architecture.html">Technical Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_plan.html">Development Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment_monitoring.html">Deployment &amp; Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_validation.html">Testing &amp; Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation_system.html">Documentation System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community_ethics.html">Community &amp; Ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap_future.html">Roadmap Future</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Appendices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-code-and-scripts">Key Code and Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ethics-compliance-code">Ethics Compliance Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dao-smart-contract">DAO Smart Contract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-script">Deployment Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prometheus-queries">Prometheus Queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-cloud-dot-diagram">Multi-Cloud DOT Diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TTBT2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Appendices</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/appendices.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="appendices">
+<h1>Appendices<a class="headerlink" href="#appendices" title="Link to this heading"></a></h1>
+<section id="key-code-and-scripts">
+<h2>Key Code and Scripts<a class="headerlink" href="#key-code-and-scripts" title="Link to this heading"></a></h2>
+<p>This section contains key code snippets and scripts used in the TTBT2 project.</p>
+<section id="ethics-compliance-code">
+<h3>Ethics Compliance Code<a class="headerlink" href="#ethics-compliance-code" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># src/core/audit.py</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EthicalLogger</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bot_id</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;audit.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">bot_id</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dao-smart-contract">
+<h3>DAO Smart Contract<a class="headerlink" href="#dao-smart-contract" title="Link to this heading"></a></h3>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// contracts/TTBT2DAO.sol</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="kt">import</span><span class="w"> </span><span class="s2">&quot;@openzeppelin/contracts/governance/Governor.sol&quot;</span><span class="p">;</span>
+<span class="kt">import</span><span class="w"> </span><span class="s2">&quot;@openzeppelin/contracts/governance/extensions/GovernorSettings.sol&quot;</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">TTBT2DAO</span><span class="w"> </span><span class="kt">is</span><span class="w"> </span>Governor<span class="p">,</span><span class="w"> </span>GovernorSettings<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">()</span>
+<span class="w">        </span>Governor<span class="p">(</span><span class="s2">&quot;TTBT2DAO&quot;</span><span class="p">)</span>
+<span class="w">        </span>GovernorSettings<span class="p">(</span>
+<span class="w">            </span><span class="m m-Decimal">1</span><span class="w"> </span>days<span class="p">,</span><span class="w">    </span><span class="c1">// Tiempo de proposición</span>
+<span class="w">            </span><span class="m m-Decimal">7</span><span class="w"> </span>days<span class="p">,</span><span class="w">    </span><span class="c1">// Tiempo de votación</span>
+<span class="w">            </span><span class="m m-Decimal">5000</span><span class="w">       </span><span class="c1">// Cuórum requerido</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">propose</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>targets<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>values<span class="p">,</span>
+<span class="w">        </span><span class="kt">bytes</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>calldatas<span class="p">,</span>
+<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>description
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>override<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>
+<span class="w">            </span><span class="k">msg.sender</span><span class="p">.</span>balanceOf<span class="p">(</span><span class="k">msg.sender</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m m-Decimal">100</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;No tienes suficientes NFTs para proponer&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>super<span class="p">.</span>propose<span class="p">(</span>targets<span class="p">,</span><span class="w"> </span>values<span class="p">,</span><span class="w"> </span>calldatas<span class="p">,</span><span class="w"> </span>description<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="deployment-script">
+<h3>Deployment Script<a class="headerlink" href="#deployment-script" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># deploy_prod_final.sh</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying Terraform...&quot;</span>
+terraform<span class="w"> </span>apply<span class="w"> </span>-auto-approve
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying Kubernetes...&quot;</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>k8s/prod/
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Updating Helm Charts...&quot;</span>
+helm<span class="w"> </span>upgrade<span class="w"> </span>ttbt2<span class="w"> </span>./charts/ttbt2<span class="w"> </span>--install
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying marketplace NFTs...&quot;</span>
+python<span class="w"> </span>scripts/mint_initial_nfts.py
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Final checks...&quot;</span>
+kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/ttbt2
+</pre></div>
+</div>
+</section>
+<section id="prometheus-queries">
+<h3>Prometheus Queries<a class="headerlink" href="#prometheus-queries" title="Link to this heading"></a></h3>
+<div class="highlight-promql notranslate"><div class="highlight"><pre><span></span><span class="c1"># Average proxy usage</span>
+<span class="k">avg</span><span class="o">(</span><span class="nv">ttbt2_proxy_usage</span><span class="o">)</span>
+
+<span class="c1"># Rate of NFT sales</span>
+<span class="kr">rate</span><span class="o">(</span><span class="nv">ttbt2_nft_sales_total</span><span class="p">[</span><span class="s">1h</span><span class="p">]</span><span class="o">)</span>
+
+<span class="c1"># Count of active plugins</span>
+<span class="k">count</span><span class="o">(</span><span class="nv">ttbt2_active_plugins</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-cloud-dot-diagram">
+<h3>Multi-Cloud DOT Diagram<a class="headerlink" href="#multi-cloud-dot-diagram" title="Link to this heading"></a></h3>
+<div class="highlight-dot notranslate"><div class="highlight"><pre><span></span><span class="k">digraph</span><span class="w"> </span><span class="nt">MultiCloud</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">node</span><span class="w"> </span><span class="p">[</span><span class="na">shape</span><span class="p">=</span><span class="s">box</span><span class="p">,</span><span class="w"> </span><span class="na">style</span><span class="p">=</span><span class="s">filled</span><span class="p">];</span>
+<span class="w">    </span><span class="k">subgraph</span><span class="w"> </span><span class="nt">AWS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;AWS&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="na">color</span><span class="p">=</span><span class="s">darkgreen</span><span class="p">;</span>
+<span class="w">        </span><span class="nt">s3</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;S3 (Storage)&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#90ee90&quot;</span><span class="p">];</span>
+<span class="w">        </span><span class="nt">ecs</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;ECS (Compute)&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#90ee90&quot;</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">subgraph</span><span class="w"> </span><span class="nt">GCP</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;Google Cloud&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="na">color</span><span class="p">=</span><span class="s">darkblue</span><span class="p">;</span>
+<span class="w">        </span><span class="nt">gcs</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;GCS&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#add8e6&quot;</span><span class="p">];</span>
+<span class="w">        </span><span class="nt">gke</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;GKE&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#add8e6&quot;</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">subgraph</span><span class="w"> </span><span class="nt">Azure</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;Azure&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="na">color</span><span class="p">=</span><span class="s">purple</span><span class="p">;</span>
+<span class="w">        </span><span class="nt">blob</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;Blob Storage&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#dda0dd&quot;</span><span class="p">];</span>
+<span class="w">        </span><span class="nt">aks</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;AKS&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">fillcolor</span><span class="p">=</span><span class="s2">&quot;#dda0dd&quot;</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Conexiones</span>
+<span class="w">    </span><span class="nt">ecs</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nt">gke</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;Traffic Load Balancing&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">color</span><span class="p">=</span><span class="s">black</span><span class="p">];</span>
+<span class="w">    </span><span class="nt">aks</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nt">s3</span><span class="w"> </span><span class="p">[</span><span class="na">label</span><span class="p">=</span><span class="s2">&quot;Backup&quot;</span><span class="p">,</span><span class="w"> </span><span class="na">color</span><span class="p">=</span><span class="s">black</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="roadmap_future.html" class="btn btn-neutral float-left" title="Roadmap Future" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, TTBT2 Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
