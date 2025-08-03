@@ -14,5 +14,6 @@
         "strings": true
     },
     "editor.quickSuggestionsDelay": 100,
-    "autoGitCopilot.enabled": true
+    "autoGitCopilot.enabled": true,
+    "AI-Keys.active.provider": "huggingface"
 }
