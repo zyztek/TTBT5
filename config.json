@@ -3,5 +3,13 @@
     "version": "1.0.0",
     "debug": false,
     "log_level": "INFO",
-    "features": ["core", "info"]
+    "features": ["core", "info"],
+    "polygon_private_key": "your_polygon_private_key_here",
+    "polkadot_private_key": "your_polkadot_private_key_here",
+    "dao_contract_address": "your_dao_contract_address_here",
+    "dao_private_key": "your_dao_private_key_here",
+    "proposer_address": "your_proposer_address_here",
+    "voter_address": "your_voter_address_here",
+    "whisper_api_key": "your_whisper_api_key_here",
+    "gpt4_api_key": "your_gpt4_api_key_here"
 }
