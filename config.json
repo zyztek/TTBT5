@@ -1,0 +1,7 @@
+{
+    "app_name": "TTBT5",
+    "version": "1.0.0",
+    "debug": false,
+    "log_level": "INFO",
+    "features": ["core", "info"]
+}
