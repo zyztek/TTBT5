@@ -1,21 +1,40 @@
 #!/bin/bash
 set -e
 
-# Generar documentación HTML
-echo "Generando documentación HTML..."
-sphinx-build -b html ./docs/source ./docs/build/html
+# Install required packages
+pip install sphinx sphinx-rtd-theme graphviz
 
-# Generar documentación LaTeX
-echo "Generando documentación LaTeX..."
-sphinx-build -b latex ./docs/source ./docs/build/latex
+# Generate DOT diagrams
+dot -Tpng docs/architecture.dot -o docs/architecture.png
+dot -Tpng docs/multi_cloud.dot -o docs/multi_cloud.png
 
-# Compilar PDF con pdflatex
-echo "Compilando PDF..."
-cd docs/build/latex
-make
-cd ../../../..
+# Create docs/source directory if it doesn't exist
+mkdir -p docs/source
 
-# Copiar el PDF generado a la raíz de docs
-cp docs/build/latex/ttbt2.pdf docs/ttbt2_final_report.pdf
+# Move markdown file to source directory
+cp docs/ttbt2_final_report.md docs/source/index.md
 
-echo "¡PDF finalizado! El archivo se encuentra en docs/ttbt2_final_report.pdf"
+# Create basic conf.py for Sphinx
+cat > docs/source/conf.py << EOF
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+    'sphinxcontrib.mermaid'
+]
+
+html_theme = 'sphinx_rtd_theme'
+html_static_path = ['_static']
+EOF
+
+# Generate HTML documentation
+sphinx-build -b html ./docs/source ./docs/html
+
+# Convert to PDF using weasyprint (more reliable than pandoc for this)
+pip install weasyprint
+weasyprint ./docs/html/index.html docs/ttbt2_final_report.pdf
+

@@ -1,0 +1,58 @@
+digraph TTBT2_Architecture {
+    graph [splines=line, nodesep=0.5, ranksep=2];
+    node [shape=rectangle, style=filled, fontname="Arial", fontsize=12];
+
+    // Subgraph de Core
+    subgraph cluster_core {
+        label="Core System";
+        color=blue;
+        evasion [label="Evasion System (proxies/behavior)", fillcolor="#add8e6", style=filled];
+        behavior [label="Behavior Logic (pause/click)", fillcolor="#add8e6"];
+        ethics [label="Ethics Compliance (audit logs)", fillcolor="#add8e6"];
+    }
+
+    // Subgraph de Plugins
+    subgraph cluster_plugins {
+        label="Plugins Ecosystem";
+        color=green;
+        telegram [label="Telegram Plugin", fillcolor="#90ee90"];
+        email [label="Email Notifications", fillcolor="#90ee90"];
+        ar [label="AR Plugin (React Native)", fillcolor="#90ee90"];
+        voice [label="Voice NFTs (Whisper)", fillcolor="#90ee90"];
+    }
+
+    // Subgraph de Dashboard
+    subgraph cluster_dashboard {
+        label="Monitoring & Control";
+        color=orange;
+        grafana [label="Grafana Dashboard", fillcolor="#ffdead"];
+        prometheus [label="Prometheus Metrics", fillcolor="#ffdead"];
+    }
+
+    // Subgraph de Infraestructura
+    subgraph cluster_infra {
+        label="Infrastructure";
+        color=gray;
+        k8s [label="Kubernetes Cluster", fillcolor="#d3d3d3"];
+        terraform [label="Terraform Multi-Cloud", fillcolor="#d3d3d3"];
+        cdn [label="AWS CloudFront CDN", fillcolor="#d3d3d3"];
+    }
+
+    // Subgraph de Blockchain
+    subgraph cluster_blockchain {
+        label="Blockchain Integration";
+        color=purple;
+        polygon [label="Polygon NFTs", fillcolor="#dda0dd"];
+        polkadot [label="Polkadot Cross-Chain", fillcolor="#dda0dd"];
+        dao [label="DAO Governance", fillcolor="#dda0dd"];
+    }
+
+    // Conexiones
+    evasion -> telegram [label="Uses", color=black];
+    behavior -> grafana [label="Sends metrics", color=red];
+    core -> plugins [label="Extensible via", color=black];
+    dashboard -> prometheus [label="Queries", color=black];
+    k8s -> terraform [label="Orchestrated by", color=black];
+    blockchain -> dao [label="Powered by", color=black];
+    plugins -> voice [label="Includes", color=black];
+}

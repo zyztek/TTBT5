@@ -24,6 +24,9 @@ author = 'TTBT2 Team'
 # The full version, including alpha/beta/rc tags
 release = '2.4.0'
 
+# The master document
+master_doc = 'index'
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -37,6 +40,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.graphviz',
+    'sphinxcontrib.mermaid'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -81,7 +85,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ttbt2.tex', 'TTBT2 Documentation',
+    ('index', 'ttbt2.tex', 'TTBT2 Documentation',
      'TTBT2 Team', 'manual'),
 ]
 
@@ -110,7 +114,7 @@ latex_domain_indices = True
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ttbt2', 'TTBT2 Documentation',
+    ('index', 'ttbt2', 'TTBT2 Documentation',
      [author], 1)
 ]
 
@@ -123,7 +127,7 @@ man_show_urls = False
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ttbt2', 'TTBT2 Documentation',
+    ('index', 'ttbt2', 'TTBT2 Documentation',
      author, 'ttbt2', 'One line description of project.',
      'Miscellaneous'),
 ]
@@ -150,3 +154,9 @@ todo_include_todos = True
 # -- Options for graphviz extension ------------------------------------------
 
 graphviz_output_format = 'svg'
+
+# -- Options for mermaid extension ------------------------------------------
+
+mermaid_output_format = 'raw'
+mermaid_version = '10.9.1'
+

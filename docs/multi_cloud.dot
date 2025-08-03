@@ -1,0 +1,27 @@
+digraph MultiCloud {
+    node [shape=box, style=filled];
+    subgraph AWS {
+        label="AWS";
+        color=darkgreen;
+        s3 [label="S3 (Storage)", fillcolor="#90ee90"];
+        ecs [label="ECS (Compute)", fillcolor="#90ee90"];
+    }
+
+    subgraph GCP {
+        label="Google Cloud";
+        color=darkblue;
+        gcs [label="GCS", fillcolor="#add8e6"];
+        gke [label="GKE", fillcolor="#add8e6"];
+    }
+
+    subgraph Azure {
+        label="Azure";
+        color=purple;
+        blob [label="Blob Storage", fillcolor="#dda0dd"];
+        aks [label="AKS", fillcolor="#dda0dd"];
+    }
+
+    // Conexiones
+    ecs -> gke [label="Traffic Load Balancing", color=black];
+    aks -> s3 [label="Backup", color=black];
+}
