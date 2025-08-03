@@ -1,0 +1,46 @@
+.. _licencias:
+
+10. Licencias
+*************
+
+El proyecto TTBT2 respeta y cumple con las licencias de código abierto. A continuinuación se detallan las licencias de los componentes utilizados:
+
+1. **Código Fuente (TTBT2)**
+   - Licencia: MIT
+   - Permisos: Uso comercial, modificación, distribución, patentes, atribución.
+   - Limitaciones: Responsabilidad, garantía.
+
+2. **Bibliotecas y Herramientas de Terceros**
+   - Sphinx: BSD-2-Clause
+   - Docker: Apache 2.0
+   - Python: PSF License
+   - Node.js: MIT
+   - React: MIT
+   - PostgreSQL: PostgreSQL License
+   - Docker: Apache 2.0
+
+3. **Licencias de Componentes de Terceros**:
+   - Python: PSF (Python Software Foundation)
+   - Docker: Apache 2.0
+   - PostgreSQL: PostgreSQL License (similar a MIT)
+   - React: MIT
+   - Sphinx: BSD-2-Clause
+
+4. **Licencias de Herramientas de Desarrollo**:
+   - Visual Studio Code: MIT
+   - Docker Desktop: Licencia de Docker
+   - GitHub: Licencia de GitHub
+
+5. **Licencias de Servicios en la Nube**:
+   - AWS: Acuerdo de Uso Compartido de AWS
+   - Google Cloud: Acuerdo de Nivel de Servicio de Google Cloud
+   - Microsoft Azure: Términos de Uso de Microsoft Azure
+
+6. **Licencias de Fuentes Externas**:
+   - Imágenes: Licencia Creative Commons
+   - Documentación: CC-BY-4.0
+   - Fuentes: SIL OFL
+
+7. **Atribuciones**:
+   - A todos los contribuyentes de las bibliotecas de código abierto.
+   - A los revisores y moderadores de la comunidad.

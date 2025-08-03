@@ -1,48 +1,48 @@
-Arquitectura Técnica
-===================
+Technical Architecture
+=======================
 
-Diagrama de Arquitectura
------------------------
+The TTBT2 project implements a sophisticated multi-cloud architecture that combines artificial intelligence, blockchain technology, and advanced bot capabilities to create a comprehensive ecosystem.
+
+System Overview
+---------------
+
+The TTBT2 architecture is built on a modular, scalable design that allows for independent development and deployment of components while maintaining system integrity and performance.
 
 .. graphviz::
 
-   digraph MultiCloud {
-       node [shape=box, style=filled];
-       subgraph AWS {
-           label="AWS";
-           color=darkgreen;
-           s3 [label="S3 (Storage)", fillcolor="#90ee90"];
-           ecs [label="ECS (Compute)", fillcolor="#90ee90"];
-       }
+    digraph TTBT2_Architecture {
+        graph [splines=line, nodesep=0.5, ranksep=2];
+        node [shape=rectangle, style=filled, fontname="Arial", fontsize=12];
 
-       subgraph GCP {
-           label="Google Cloud";
-           color=darkblue;
-           gcs [label="GCS", fillcolor="#add8e6"];
-           gke [label="GKE", fillcolor="#add8e6"];
-       }
+        // Subgraph de Core  
+        subgraph cluster_core {
+            label="Core System";
+            color=blue;
+            evasion [label="Evasion System (proxies/behavior)", fillcolor="#add8e6", style=filled];
+            behavior [label="Behavior Logic (pause/click)", fillcolor="#add8e6"];
+            ethics [label="Ethics Compliance (audit logs)", fillcolor="#add8e6"];
+        }
 
-       subgraph Azure {
-           label="Azure";
-           color=purple;
-           blob [label="Blob Storage", fillcolor="#dda0dd"];
-           aks [label="AKS", fillcolor="#dda0dd"];
-       }
+        // Subgraph de Plugins  
+        subgraph cluster_plugins {
+            label="Plugins Ecosystem";
+            color=green;
+            telegram [label="Telegram Plugin", fillcolor="#90ee90"];
+            email [label="Email Notifications", fillcolor="#90ee90"];
+            ar [label="AR Plugin (React Native)", fillcolor="#90ee90"];
+            voice [label="Voice NFTs (Whisper)", fillcolor="#90ee90"];
+        }
 
-       // Conexiones
-       ecs -> gke [label="Traffic Load Balancing", color=black];
-       aks -> s3 [label="Backup", color=black];
-   }
+        // Subgraph de Dashboard  
+        subgraph cluster_dashboard {
+            label="Monitoring & Control";
+            color=orange;
+            grafana [label="Grafana Dashboard", fillcolor="#ffdead"];
+            prometheus [label="Prometheus Metrics", fillcolor="#ffdead"];
+        }
 
-Componentes del Sistema
-------------------------
-
-Core System
-~~~~~~~~~~~
-
-El sistema central de TTBT2 se compone de varios componentes clave:
-
-- **Evasion System**: Implementa técnicas para evitar detección en plataformas sociales.
+        // Subgraph de Infraestructura  
+        subgraph cluster_infra {
 - **Behavior Logic**: Define patrones de comportamiento humano para interacciones.
 - **Ethics Compliance**: Módulo de auditoría para garantizar el uso ético.
 

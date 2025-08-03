@@ -1,0 +1,337 @@
+.. _pruebas_y_validacion:
+
+5. Pruebas y Validación
+***********************
+
+Este capítulo detalla la estrategia integral de pruebas implementada para el proyecto TTBT2, asegurando la calidad, fiabilidad y seguridad del sistema.
+
+5.1. Estrategia de Pruebas
+=========================
+
+La estrategia de pruebas de TTBT2 se basa en un enfoque piramidal que prioriza la automatización y la cobertura integral del sistema.
+
+5.1.1. Pirámide de Pruebas
+-------------------------
+
+.. graphviz::
+
+    digraph TestPyramid {
+        rankdir=TB;
+        node [shape=box, style=filled];
+        
+        unit [label="Unit Tests\n(70%)", fillcolor=lightgreen];
+        integration [label="Integration Tests\n(20%)", fillcolor=lightblue];
+        e2e [label="End-to-End Tests\n(10%)", fillcolor=lightcoral];
+        
+        unit -> integration;
+        integration -> e2e;
+    }
+
+5.1.2. Tipos de Pruebas Implementadas
+-----------------------------------
+
+* **Unitarias**: Validación de funciones y métodos individuales
+* **Integración**: Comunicación entre componentes
+* **Sistema**: Funcionalidad completa del sistema
+* **Aceptación**: Validación con usuarios finales
+* **Seguridad**: Evaluación de vulnerabilidades
+* **Performance**: Pruebas de carga y estrés
+* **Compatibilidad**: Funcionamiento en diferentes entornos
+
+5.2. Framework de Pruebas
+=======================
+
+5.2.1. Backend (Python)
+----------------------
+
+* **PyTest**: Framework principal de pruebas
+* **Factory Boy**: Generación de datos de prueba
+* **Mock**: Simulación de dependencias externas
+* **Coverage.py**: Medición de cobertura de código
+
+5.2.2. Frontend (JavaScript/React)
+--------------------------------
+
+* **Jest**: Framework de pruebas unitarias
+* **React Testing Library**: Pruebas de componentes React
+* **Cypress**: Pruebas end-to-end del frontend
+* **Storybook**: Desarrollo y pruebas de componentes UI
+
+5.2.3. Blockchain
+----------------
+
+* **Truffle**: Framework de desarrollo Ethereum
+* **Ganache**: Blockchain local para pruebas
+* **Chai**: Librería de aserciones
+* **Mocha**: Framework de pruebas para smart contracts
+
+5.3. Cobertura de Pruebas
+========================
+
+5.3.1. Métricas de Cobertura
+--------------------------
+
+* **Cobertura de Líneas**: 95% en código crítico
+* **Cobertura de Funciones**: 98% en módulos principales
+* **Cobertura de Ramas**: 92% en lógica condicional compleja
+* **Cobertura de Caminos**: 85% en flujos de ejecución
+
+5.3.2. Herramientas de Medición
+-----------------------------
+
+* **SonarQube**: Análisis estático y cobertura
+* **Codecov**: Reportes de cobertura integrados en CI
+* **Code Climate**: Calidad general del código
+
+5.4. Pruebas Unitarias
+====================
+
+5.4.1. Componentes Críticos Probados
+----------------------------------
+
+* **Core Engine**: 100% de cobertura en funciones de evasión
+* **Plugin Manager**: 98% de cobertura en sistema de carga
+* **Sistema de Autenticación**: 100% de cobertura en flujos de login
+* **Gestor de Bots**: 95% de cobertura en ciclos de vida de bots
+
+5.4.2. Ejemplo de Prueba Unitaria
+--------------------------------
+
+.. code-block:: python
+
+    def test_bot_evasion_behavior():
+        """Test that bot implements proper evasion techniques"""
+        bot = SocialBot(platform="instagram")
+        behavior = bot.get_behavior_pattern()
+        
+        # Verify human-like timing
+        assert behavior.min_pause > 1.5  # Minimum human pause
+        assert behavior.max_pause < 30   # Maximum reasonable pause
+        
+        # Verify click patterns
+        assert behavior.click_variance > 0.3  # Sufficient randomness
+        assert behavior.scroll_behavior in ["natural", "random"]
+
+5.5. Pruebas de Integración
+=========================
+
+5.5.1. APIs y Servicios Externos
+--------------------------------
+
+* **API REST**: Validación de todos los endpoints con datos válidos e inválidos
+* **Base de Datos**: Pruebas de conexión, queries y transacciones
+* **Servicios de IA**: Verificación de integración con OpenAI y Whisper
+* **Blockchain**: Pruebas de interacción con Polygon y Polkadot
+
+5.5.2. Ejemplo de Prueba de Integración
+--------------------------------------
+
+.. code-block:: python
+
+    def test_plugin_marketplace_integration():
+        """Test integration between plugin manager and marketplace"""
+        # Setup
+        plugin_manager = PluginManager()
+        marketplace_api = MockMarketplaceAPI()
+        
+        # Test plugin installation
+        plugin = marketplace_api.get_plugin("voice_nft_generator")
+        result = plugin_manager.install_plugin(plugin)
+        
+        assert result.success == True
+        assert plugin_manager.is_plugin_active("voice_nft_generator") == True
+
+5.6. Pruebas End-to-End
+=====================
+
+5.6.1. Flujos de Usuario Completos
+---------------------------------
+
+* **Registro y Autenticación**: Proceso completo de creación de cuenta
+* **Configuración de Bots**: Creación y personalización de instancias
+* **Publicación en Redes**: Generación y publicación de contenido
+* **Monitoreo y Métricas**: Visualización de dashboards y alertas
+
+5.6.2. Ejemplo de Prueba E2E
+--------------------------
+
+.. code-block:: javascript
+
+    describe('User Journey: Create and Deploy Bot', () => {
+      it('should allow user to create bot and publish content', () => {
+        // Login
+        cy.visit('/login')
+        cy.get('[data-testid="email"]').type('test@example.com')
+        cy.get('[data-testid="password"]').type('password123')
+        cy.get('[data-testid="login-button"]').click()
+        
+        // Create bot
+        cy.get('[data-testid="create-bot"]').click()
+        cy.get('[data-testid="bot-name"]').type('TestBot')
+        cy.get('[data-testid="platform-select"]').select('instagram')
+        cy.get('[data-testid="create-button"]').click()
+        
+        // Configure bot
+        cy.get('[data-testid="behavior-tab"]').click()
+        cy.get('[data-testid="min-pause"]').type('2')
+        cy.get('[data-testid="save-config"]').click()
+        
+        // Deploy and verify
+        cy.get('[data-testid="deploy-button"]').click()
+        cy.get('[data-testid="deployment-status"]').should('contain', 'active')
+      })
+    })
+
+5.7. Pruebas de Seguridad
+========================
+
+5.7.1. Análisis de Vulnerabilidades
+----------------------------------
+
+* **Escaneo Estático (SAST)**: Bandit para Python, ESLint para JavaScript
+* **Escaneo Dinámico (DAST)**: OWASP ZAP para aplicaciones web
+* **Análisis de Dependencias**: Safety y npm audit para vulnerabilidades conocidas
+* **Pruebas de Penetración**: Evaluaciones trimestrales por expertos externos
+
+5.7.2. Controles de Seguridad Validados
+------------------------------------
+
+* **Autenticación**: Pruebas de fuerza bruta, inyección, y sesiones
+* **Autorización**: Verificación de permisos y roles
+* **Datos Sensibles**: Cifrado y protección de información personal
+* **API Security**: Rate limiting, input validation, y protección contra ataques
+
+5.8. Pruebas de Performance
+=========================
+
+5.8.1. Pruebas de Carga
+---------------------
+
+* **Usuarios Concurrentes**: Simulación de 10,000 usuarios activos
+* **Throughput**: 1000 requests por segundo en condiciones normales
+* **Latencia**: < 200ms para 95% de requests
+* **Tiempo de Respuesta**: < 500ms para todas las operaciones
+
+5.8.2. Pruebas de Estrés
+-----------------------
+
+* **Pico de Uso**: Simulación de eventos de alta demanda
+* **Degradación Controlada**: Comportamiento bajo carga extrema
+* **Recuperación**: Tiempo de retorno a estado normal tras pico
+
+5.8.3. Herramientas de Performance
+--------------------------------
+
+* **Locust**: Pruebas de carga distribuidas
+* **JMeter**: Pruebas de performance detalladas
+* **Gatling**: Análisis de rendimiento en tiempo real
+* **New Relic**: Monitoreo de performance en producción
+
+5.9. Pruebas de Compatibilidad
+============================
+
+5.9.1. Navegadores Soportados
+---------------------------
+
+* **Chrome**: Últimas 2 versiones
+* **Firefox**: Últimas 2 versiones
+* **Safari**: Versiones recientes en macOS
+* **Edge**: Última versión
+
+5.9.2. Dispositivos y Resoluciones
+--------------------------------
+
+* **Desktop**: Varias resoluciones desde 1024x768 hasta 4K
+* **Tablet**: Orientación horizontal y vertical
+* **Mobile**: iOS y Android en múltiples tamaños de pantalla
+
+5.10. Pruebas de Regresión
+========================
+
+5.10.1. Suite de Regresión Automática
+-----------------------------------
+
+* **Ejecución Nocturna**: Pruebas completas cada noche
+* **Ejecución en PR**: Validación antes de merge a main
+* **Cobertura de Funcionalidades Críticas**: 100% de features principales
+
+5.10.2. Detección de Regresiones
+--------------------------------
+
+* **Comparación de Métricas**: Rendimiento vs. builds anteriores
+* **Análisis de Logs**: Detección de nuevos errores o warnings
+* **Validación Visual**: Comparación de screenshots para UI
+
+5.11. Pruebas de Aceptación del Usuario (UAT)
+===========================================
+
+5.11.1. Grupos de Beta Testers
+----------------------------
+
+* **Usuarios Técnicos**: Desarrolladores y administradores de sistemas
+* **Usuarios Finales**: Personas que usarán el producto en producción
+* **Stakeholders**: Representantes de negocio y compliance
+
+5.11.2. Criterios de Aceptación
+-----------------------------
+
+* **Funcionalidad**: Todas las features trabajan como se espera
+* **Usabilidad**: Interface intuitiva y accesible
+* **Performance**: Tiempos de respuesta aceptables
+* **Seguridad**: Protección adecuada de datos y privacidad
+
+5.12. Métricas de Calidad
+=======================
+
+5.12.1. Indicadores Clave de Pruebas
+----------------------------------
+
+* **Tasa de Éxito de Pruebas**: > 99.5% en builds principales
+* **Tiempo Medio para Detección de Bugs**: < 2 horas
+* **Tiempo Medio para Resolución de Bugs Críticos**: < 4 horas
+* **Cobertura de Pruebas Automáticas**: > 95% en código crítico
+
+5.12.2. Reportes de Pruebas
+--------------------------
+
+* **Reportes Diarios**: Resumen de ejecuciones nocturnas
+* **Reportes de Build**: Estado de pruebas en cada integración
+* **Dashboards de Calidad**: Métricas en tiempo real de calidad del código
+* **Informe Semanal Ejecutivo**: Resumen para stakeholders
+
+5.13. Mejoras Continuas en Pruebas
+=================================
+
+5.13.1. Automatización Adicional
+--------------------------------
+
+* **Pruebas de Exploración Automatizadas**: Uso de AI para generación de casos
+* **Validación Visual Automática**: Comparación de interfaces con baseline
+* **Pruebas de Seguridad Continuas**: Escaneo en cada commit
+
+5.13.2. Optimización de Pruebas
+-----------------------------
+
+* **Paralelización de Ejecuciones**: Reducción de tiempo total de pruebas
+* **Selección Inteligente de Tests**: Ejecución solo de pruebas relevantes
+* **Mocking Mejorado**: Simulaciones más realistas de dependencias
+
+5.14. Próximos Pasos en Pruebas
+============================
+
+5.14.1. Corto Plazo (1-3 meses)
+-----------------------------
+
+* Implementación de pruebas de contrato para APIs
+* Expansión de cobertura en módulos de IA y blockchain
+* Integración de pruebas de accesibilidad (WCAG)
+
+5.14.2. Mediano Plazo (3-6 meses)
+--------------------------------
+
+* Sistema de pruebas autónomo basado en machine learning
+* Pruebas de caos para mejorar resiliencia
+* Validación automática de cumplimiento normativo
+
+5.14.3. Largo Plazo (6+ meses)
+------------------------------

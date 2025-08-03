@@ -1,0 +1,742 @@
+.. _apendices:
+
+9. Apéndices
+*************
+
+Este capítulo contiene información técnica detallada, especificaciones y recursos adicionales que complementan la documentación principal del proyecto TTBT2.
+
+9.1. Especificaciones Técnicas Detalladas
+=======================================
+
+9.1.1. Requisitos del Sistema
+--------------------------
+
+**Mínimos:**
+* CPU: 2 núcleos a 2.0 GHz
+* RAM: 4 GB
+* Disco: 20 GB de espacio libre
+* SO: Ubuntu 18.04+, CentOS 7+, Windows 10, macOS 10.14+
+* Red: 10 Mbps de conexión estable
+
+**Recomendados:**
+* CPU: 4 núcleos a 3.0 GHz
+* RAM: 8 GB
+* Disco: 50 GB de espacio libre (SSD recomendado)
+* SO: Ubuntu 20.04+, CentOS 8+, Windows 11, macOS 12+
+* Red: 100 Mbps de conexión estable
+
+9.1.2. Arquitectura de Microservicios
+----------------------------------
+
+.. code-block:: yaml
+
+    # docker-compose.yml
+    version: '3.8'
+    services:
+      core-engine:
+        image: ttbt2/core-engine:latest
+        ports:
+          - "5000:5000"
+        environment:
+          - DATABASE_URL=postgresql://user:pass@db:5432/ttbt2
+          - REDIS_URL=redis://cache:6379/0
+        depends_on:
+          - database
+          - cache
+          - message-queue
+      
+      plugin-manager:
+        image: ttbt2/plugin-manager:latest
+        ports:
+          - "5001:5001"
+        environment:
+          - CORE_API_URL=http://core-engine:5000
+        depends_on:
+          - core-engine
+      
+      dashboard:
+        image: ttbt2/dashboard:latest
+        ports:
+          - "3000:3000"
+        environment:
+          - API_URL=http://core-engine:5000
+        depends_on:
+          - core-engine
+      
+      database:
+        image: postgres:13
+        environment:
+          - POSTGRES_DB=ttbt2
+          - POSTGRES_USER=ttbt2_user
+          - POSTGRES_PASSWORD=secure_password
+        volumes:
+          - db_data:/var/lib/postgresql/data
+      
+      cache:
+        image: redis:6-alpine
+        ports:
+          - "6379:6379"
+      
+      message-queue:
+        image: rabbitmq:3-management
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+    
+    volumes:
+      db_data:
+
+9.2. API Reference
+================
+
+9.2.1. Endpoints Principales
+--------------------------
+
+**Autenticación:**
+
+.. code-block:: http
+
+    POST /api/v1/auth/login
+    Content-Type: application/json
+    
+    {
+      "email": "user@example.com",
+      "password": "secure_password"
+    }
+    
+    Response:
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "expires_in": 3600
+    }
+
+**Gestión de Bots:**
+
+.. code-block:: http
+
+    GET /api/v1/bots
+    Authorization: Bearer <token>
+    
+    Response:
+    [
+      {
+        "id": "bot_12345",
+        "name": "Instagram Bot",
+        "platform": "instagram",
+        "status": "active",
+        "created_at": "2023-01-15T10:30:00Z"
+      }
+    ]
+
+**Ejecución de Acciones:**
+
+.. code-block:: http
+
+    POST /api/v1/bots/{bot_id}/actions
+    Authorization: Bearer <token>
+    Content-Type: application/json
+    
+    {
+      "action": "post_content",
+      "parameters": {
+        "content": "Hello world!",
+        "hashtags": ["#hello", "#world"]
+      }
+    }
+
+9.3. Código de Ejemplo
+====================
+
+9.3.1. Plugin Básico
+------------------
+
+.. code-block:: python
+
+    # plugins/sample_plugin.py
+    from ttbt2.core.plugin_base import PluginBase
+    from ttbt2.core.context import Context
+    
+    class SamplePlugin(PluginBase):
+        """
+        Plugin de ejemplo que demuestra la estructura básica
+        """
+        
+        def __init__(self):
+            super().__init__(
+                name="Sample Plugin",
+                version="1.0.0",
+                description="Plugin de ejemplo para TTBT2"
+            )
+        
+        def initialize(self, context: Context):
+            """
+            Inicialización del plugin
+            """
+            self.context = context
+            self.logger.info("Sample plugin initialized")
+        
+        def execute(self, action: str, params: dict):
+            """
+            Ejecución de acciones del plugin
+            """
+            if action == "sample_action":
+                return self._perform_sample_action(params)
+            else:
+                raise ValueError(f"Unknown action: {action}")
+        
+        def _perform_sample_action(self, params: dict):
+            """
+            Implementación de la acción de ejemplo
+            """
+            message = params.get("message", "Hello from sample plugin!")
+            self.logger.info(f"Executing sample action: {message}")
+            return {"result": "success", "message": message}
+        
+        def cleanup(self):
+            """
+            Limpieza antes de desactivar el plugin
+            """
+            self.logger.info("Sample plugin cleanup completed")
+
+9.3.2. Componente de React
+------------------------
+
+.. code-block:: jsx
+
+    // src/components/BotStatus.jsx
+    import React, { useState, useEffect } from 'react';
+    import { makeStyles } from '@material-ui/core/styles';
+    import { 
+      Card, 
+      CardContent, 
+      Typography, 
+      Chip, 
+      CircularProgress 
+    } from '@material-ui/core';
+    
+    const useStyles = makeStyles((theme) => ({
+      card: {
+        minWidth: 275,
+        margin: theme.spacing(2),
+      },
+      title: {
+        fontSize: 14,
+      },
+      pos: {
+        marginBottom: 12,
+      },
+    }));
+    
+    const BotStatus = ({ botId }) => {
+      const classes = useStyles();
+      const [status, setStatus] = useState(null);
+      const [loading, setLoading] = useState(true);
+    
+      useEffect(() => {
+        const fetchStatus = async () => {
+          try {
+            const response = await fetch(`/api/v1/bots/${botId}/status`);
+            const data = await response.json();
+            setStatus(data);
+          } catch (error) {
+            console.error('Error fetching bot status:', error);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchStatus();
+        const interval = setInterval(fetchStatus, 30000); // Refresh every 30 seconds
+    
+        return () => clearInterval(interval);
+      }, [botId]);
+    
+      if (loading) {
+        return <CircularProgress />;
+      }
+    
+      if (!status) {
+        return <Typography>Error loading bot status</Typography>;
+      }
+    
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              Bot Status
+            </Typography>
+            <Typography variant="h5" component="h2">
+              {status.name}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {status.platform}
+            </Typography>
+            <Chip 
+              label={status.status} 
+              color={status.status === 'active' ? 'primary' : 'secondary'} 
+            />
+          </CardContent>
+        </Card>
+      );
+    };
+    
+    export default BotStatus;
+
+9.4. Configuración de Despliegue
+==============================
+
+9.4.1. Kubernetes Deployment
+--------------------------
+
+.. code-block:: yaml
+
+    # k8s/core-engine-deployment.yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ttbt2-core-engine
+      labels:
+        app: ttbt2
+        component: core-engine
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: ttbt2
+          component: core-engine
+      template:
+        metadata:
+          labels:
+            app: ttbt2
+            component: core-engine
+        spec:
+          containers:
+          - name: core-engine
+            image: ttbt2/core-engine:latest
+            ports:
+            - containerPort: 5000
+            env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ttbt2-secrets
+                  key: database-url
+            - name: REDIS_URL
+              value: redis://ttbt2-redis:6379
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "250m"
+              limits:
+                memory: "1Gi"
+                cpu: "500m"
+            livenessProbe:
+              httpGet:
+                path: /health
+                port: 5000
+              initialDelaySeconds: 30
+              periodSeconds: 10
+            readinessProbe:
+              httpGet:
+                path: /ready
+                port: 5000
+              initialDelaySeconds: 5
+              periodSeconds: 5
+
+9.4.2. Terraform Configuration
+-----------------------------
+
+.. code-block:: hcl
+
+    # terraform/main.tf
+    terraform {
+      required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.0"
+        }
+      }
+    }
+    
+    provider "aws" {
+      region = var.aws_region
+    }
+    
+    module "ttbt2_infrastructure" {
+      source = "./modules/ttbt2"
+      
+      environment     = var.environment
+      aws_region      = var.aws_region
+      instance_count  = var.instance_count
+      db_instance_class = var.db_instance_class
+    }
+    
+    variable "environment" {
+      description = "Environment name (dev, staging, prod)"
+      type        = string
+      default     = "dev"
+    }
+    
+    variable "aws_region" {
+      description = "AWS region"
+      type        = string
+      default     = "us-east-1"
+    }
+    
+    variable "instance_count" {
+      description = "Number of EC2 instances"
+      type        = number
+      default     = 2
+    }
+    
+    variable "db_instance_class" {
+      description = "Database instance class"
+      type        = string
+      default     = "db.t3.medium"
+    }
+
+9.5. Scripts de Utilidad
+======================
+
+9.5.1. Script de Backup
+---------------------
+
+.. code-block:: bash
+
+    #!/bin/bash
+    # scripts/backup.sh
+    
+    set -e
+    
+    # Variables de configuración
+    BACKUP_DIR="/backups/ttbt2"
+    DATE=$(date +%Y%m%d_%H%M%S)
+    DB_NAME="ttbt2"
+    DB_USER="ttbt2_user"
+    
+    # Crear directorio de backup si no existe
+    mkdir -p $BACKUP_DIR
+    
+    # Backup de base de datos
+    echo "Creating database backup..."
+    pg_dump -U $DB_USER -h localhost $DB_NAME > $BACKUP_DIR/db_backup_$DATE.sql
+    
+    # Backup de configuraciones
+    echo "Creating config backup..."
+    tar -czf $BACKUP_DIR/config_backup_$DATE.tar.gz /etc/ttbt2/
+    
+    # Backup de logs
+    echo "Creating logs backup..."
+    tar -czf $BACKUP_DIR/logs_backup_$DATE.tar.gz /var/log/ttbt2/
+    
+    # Limpiar backups antiguos (más de 30 días)
+    find $BACKUP_DIR -name "*.sql" -mtime +30 -delete
+    find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
+    
+    echo "Backup completed successfully: $BACKUP_DIR/backup_$DATE"
+
+9.5.2. Script de Health Check
+---------------------------
+
+.. code-block:: bash
+
+    #!/bin/bash
+    # scripts/health_check.sh
+    
+    set -e
+    
+    # Variables
+    API_URL="http://localhost:5000"
+    HEALTH_ENDPOINT="/health"
+    
+    # Función para verificar servicio
+    check_service() {
+      local service_name=$1
+      local url=$2
+      
+      echo "Checking $service_name..."
+      
+      if curl -f -s $url > /dev/null; then
+        echo "✓ $service_name is running"
+        return 0
+      else
+        echo "✗ $service_name is down"
+        return 1
+      fi
+    }
+    
+    # Verificar servicios principales
+    check_service "Core API" "$API_URL$HEALTH_ENDPOINT"
+    check_service "Database" "http://localhost:5432"
+    check_service "Redis" "http://localhost:6379"
+    
+    # Verificar conectividad de red
+    if ping -c 1 8.8.8.8 > /dev/null 2>&1; then
+      echo "✓ Network connectivity OK"
+    else
+      echo "✗ Network connectivity issues"
+      exit 1
+    fi
+    
+    echo "Health check completed"
+
+9.6. Diagramas Técnicos
+=====================
+
+9.6.1. Flujo de Datos
+-------------------
+
+.. graphviz::
+
+    digraph DataFlow {
+        rankdir=LR;
+        node [shape=box, style=filled, color=lightblue];
+        
+        user [label="Usuario", fillcolor=lightgreen];
+        dashboard [label="Dashboard Web", fillcolor=lightblue];
+        api [label="API REST", fillcolor=lightyellow];
+        core [label="Core Engine", fillcolor=lightcoral];
+        plugins [label="Plugins", fillcolor=lightpink];
+        db [label="Database", fillcolor=lightgray];
+        redis [label="Redis Cache", fillcolor=lightgray];
+        external [label="Servicios Externos", fillcolor=lightcyan];
+        
+        user -> dashboard;
+        dashboard -> api;
+        api -> core;
+        core -> plugins;
+        core -> db;
+        core -> redis;
+        plugins -> external;
+        plugins -> db;
+        plugins -> redis;
+    }
+
+9.7. Métricas y Monitoreo
+=======================
+
+9.7.1. Queries de Prometheus
+--------------------------
+
+.. code-block:: promql
+
+    # Tasa de requests por segundo
+    rate(http_requests_total[5m])
+    
+    # Latencia 95th percentile
+    histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))
+    
+    # Uso de CPU por pod
+    rate(container_cpu_usage_seconds_total[5m])
+    
+    # Uso de memoria por servicio
+    container_memory_usage_bytes{container!="POD"}
+    
+    # Número de bots activos
+    ttbt2_active_bots
+    
+    # Tasa de éxito de acciones
+    rate(ttbt2_action_success_total[5m]) / rate(ttbt2_action_total[5m])
+
+9.7.2. Alertas Críticas
+---------------------
+
+.. code-block:: yaml
+
+    # prometheus/alerts.yml
+    groups:
+    - name: ttbt2-alerts
+      rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "{{ $value }}% of requests are failing"
+    
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency detected"
+          description: "95th percentile latency is {{ $value }} seconds"
+    
+      - alert: LowActiveBots
+        expr: ttbt2_active_bots < 10
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low number of active bots"
+          description: "Only {{ $value }} bots are currently active"
+
+9.8. Seguridad y Compliance
+=========================
+
+9.8.1. Políticas de Seguridad
+--------------------------
+
+.. code-block:: yaml
+
+    # security/policies.yaml
+    apiVersion: security.ttbt2/v1
+    kind: SecurityPolicy
+    metadata:
+      name: core-security-policy
+    spec:
+      authentication:
+        enabled: true
+        methods:
+          - jwt
+          - oauth2
+        tokenExpiration: 3600
+      
+      authorization:
+        rbac:
+          enabled: true
+          roles:
+            - name: admin
+              permissions:
+                - read
+                - write
+                - delete
+                - manage_users
+            - name: user
+              permissions:
+                - read
+                - write
+            - name: viewer
+              permissions:
+                - read
+      
+      encryption:
+        atRest:
+          enabled: true
+          algorithm: AES-256
+        inTransit:
+          enabled: true
+          protocol: TLSv1.3
+      
+      audit:
+        enabled: true
+        logLevel: INFO
+        retentionDays: 90
+
+9.9. Troubleshooting
+==================
+
+9.9.1. Problemas Comunes y Soluciones
+----------------------------------
+
+**Error: "Connection refused to database"**
+
+*Verificación:*
+.. code-block:: bash
+
+    # Verificar si el servicio de base de datos está corriendo
+    systemctl status postgresql
+    
+    # Verificar conectividad
+    psql -h localhost -U ttbt2_user -d ttbt2 -c "SELECT 1;"
+
+*Solución:*
+.. code-block:: bash
+
+    # Reiniciar servicio de base de datos
+    systemctl restart postgresql
+    
+    # Verificar configuración de conexión
+    cat /etc/ttbt2/config.json | grep database
+
+**Error: "Plugin failed to load"**
+
+*Verificación:*
+.. code-block:: bash
+
+    # Revisar logs de errores
+    tail -f /var/log/ttbt2/plugin-manager.log
+    
+    # Verificar dependencias del plugin
+    pip list | grep <plugin-dependency>
+
+*Solución:*
+.. code-block:: bash
+
+    # Reinstalar plugin
+    ttbt2-cli plugin reinstall <plugin-name>
+    
+    # Actualizar dependencias
+    pip install -r /plugins/<plugin-name>/requirements.txt
+
+9.10. Recursos Adicionales
+========================
+
+9.10.1. Enlaces Útiles
+--------------------
+
+* **Documentación Oficial**: https://docs.ttbt2.com
+* **Repositorio de Código**: https://github.com/ttbt2/ttbt2
+* **Comunidad de Usuarios**: https://community.ttbt2.com
+* **Blog Técnico**: https://blog.ttbt2.com
+* **Soporte Técnico**: support@ttbt2.com
+
+9.10.2. Herramientas Recomendadas
+--------------------------------
+
+* **Desarrollo**: Visual Studio Code, PyCharm, Docker Desktop
+* **Testing**: PyTest, Jest, Selenium, Postman
+* **Monitoreo**: Grafana, Prometheus, ELK Stack
+* **CI/CD**: GitHub Actions, Jenkins, GitLab CI
+* **Documentación**: Sphinx, Draw.io, Mermaid Live Editor
+
+9.11. Glosario Técnico
+====================
+
+* **API**: Interfaz de Programación de Aplicaciones
+* **Bot**: Programa automatizado que realiza tareas en plataformas sociales
+* **DAO**: Organización Autónoma Descentralizada
+* **NFT**: Token No Fungible
+* **Plugin**: Componente de software que añade funcionalidades a una aplicación
+* **Microservicio**: Arquitectura de software basada en servicios pequeños e independientes
+* **CI/CD**: Integración y Despliegue Continuo
+* **Kubernetes**: Plataforma de orquestación de contenedores
+* **Docker**: Plataforma de contenedorización de aplicaciones
+* **Blockchain**: Cadena de bloques para registro descentralizado e inmutable
+
+9.12. Changelog del Proyecto
+==========================
+
+9.12.1. Versión 2.4.0 (Actual)
+--------------------------
+
+* **Nuevas Funcionalidades:**
+  - Sistema de IA multimodal (texto, voz, imagen)
+  - Integración con realidad aumentada en dashboard
+  - Marketplace de plugins premium con suscripciones
+  - Sistema de gamificación avanzada
+
+* **Mejoras:**
+  - Optimización de performance del 30%
+  - Mejoras en seguridad y compliance
+  - Expansión de soporte a 15 plataformas sociales
+  - Mejoras en sistema de evasión anti-detección
+
+* **Correcciones:**
+  - Resolución de 47 bugs reportados
+  - Parches de seguridad críticos
+  - Mejoras en estabilidad del sistema
+
+9.12.2. Versiones Anteriores
+--------------------------
+
+* **v2.3.0**: Implementación de DAO y sistema de votación
+* **v2.2.0**: Integración con blockchain Polygon y Polkadot
+* **v2.1.0**: Sistema de plugins y marketplace
+* **v2.0.0**: Arquitectura modular y multi-cloud
+* **v1.0.0**: Versión inicial con core engine básico
+
+Este apéndice proporciona recursos técnicos detallados para desarrolladores, administradores y usuarios avanzados que deseen profundizar en aspectos específicos del sistema TTBT2.

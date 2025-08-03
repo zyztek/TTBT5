@@ -1,0 +1,226 @@
+.. _arquitectura_tecnica:
+
+2. Arquitectura Técnica
+**********************
+
+La arquitectura de TTBT2 está diseñada siguiendo principios de modularidad, escalabilidad y seguridad. Esta sección detalla los componentes principales del sistema y su interacción.
+
+2.1. Diagrama de Arquitectura General
+===================================
+
+.. graphviz::
+
+    digraph TTBT2_Architecture {
+        graph [splines=ortho, nodesep=1, ranksep=1];
+        node [shape=rectangle, style=filled, fontname="Arial", fontsize=10];
+        
+        // Capa de Presentación
+        subgraph cluster_frontend {
+            label="Capa de Presentación";
+            color=blue;
+            frontend [label="Frontend (React)", fillcolor="#add8e6"];
+            dashboard [label="Dashboard Web", fillcolor="#add8e6"];
+        }
+        
+        // Capa de Aplicación
+        subgraph cluster_backend {
+            label="Capa de Aplicación";
+            color=green;
+            api [label="API REST (Flask)", fillcolor="#90ee90"];
+            core [label="Core Engine", fillcolor="#90ee90"];
+            plugins [label="Plugin Manager", fillcolor="#90ee90"];
+        }
+        
+        // Capa de Datos
+        subgraph cluster_data {
+            label="Capa de Datos";
+            color=orange;
+            db [label="PostgreSQL", fillcolor="#ffd700"];
+            cache [label="Redis Cache", fillcolor="#ffd700"];
+            logs [label="ELK Stack", fillcolor="#ffd700"];
+        }
+        
+        // Capa de Servicios Externos
+        subgraph cluster_external {
+            label="Servicios Externos";
+            color=purple;
+            blockchain [label="Blockchain (Polygon)", fillcolor="#dda0dd"];
+            ai [label="IA Services", fillcolor="#dda0dd"];
+            cloud [label="Cloud Providers", fillcolor="#dda0dd"];
+        }
+        
+        // Conexiones
+        frontend -> api [label="HTTP/REST"];
+        api -> core [label="Internal API"];
+        core -> plugins [label="Plugin Interface"];
+        core -> db [label="Data Access"];
+        core -> cache [label="Cache"];
+        core -> logs [label="Logging"];
+        plugins -> blockchain [label="NFT Transactions"];
+        plugins -> ai [label="AI Processing"];
+        core -> cloud [label="Cloud Services"];
+        
+        // Monitoreo
+        monitor [label="Monitoring (Grafana/Prometheus)", shape=ellipse, fillcolor="#ffdead"];
+        core -> monitor [label="Metrics"];
+        db -> monitor [label="DB Metrics"];
+        cloud -> monitor [label="Cloud Metrics"];
+    }
+
+2.2. Componentes Principales
+==========================
+
+2.2.1. Core Engine
+----------------
+
+El motor principal del sistema que coordina todas las operaciones:
+
+* **Gestión de Bots**: Control de múltiples instancias de bots
+* **Sistema de Evasión**: Implementación de técnicas anti-detección
+* **Orquestación de Tareas**: Planificación y ejecución de acciones automatizadas
+* **Manejo de Sesiones**: Gestión segura de credenciales y sesiones
+
+2.2.2. Plugin Manager
+--------------------
+
+Sistema modular que permite la extensión del core:
+
+* **Carga Dinámica**: Plugins cargados en tiempo de ejecución
+* **API estandarizada**: Interfaz común para todos los plugins
+* **Gestión de Dependencias**: Resolución automática de dependencias
+* **Sistema de Versionado**: Control de compatibilidad entre versiones
+
+2.2.3. Frontend (Dashboard)
+--------------------------
+
+Interfaz web para la administración del sistema:
+
+* **Visualización de Métricas**: Gráficos en tiempo real de actividad
+* **Gestión de Bots**: Control y configuración de instancias
+* **Marketplace de Plugins**: Instalación y gestión de plugins
+* **Sistema de Notificaciones**: Alertas y eventos importantes
+
+2.3. Infraestructura Cloud
+========================
+
+2.3.1. Multi-Cloud Deployment
+----------------------------
+
+El sistema está desplegado en múltiples proveedores de cloud:
+
+* **AWS**: Principal proveedor para servicios de cómputo y almacenamiento
+* **Google Cloud**: Servicios de IA y procesamiento de datos
+* **Azure**: Servicios de blockchain y almacenamiento redundante
+
+2.3.2. Orquestación con Kubernetes
+---------------------------------
+
+Sistema de orquestación basado en contenedores:
+
+* **Auto-escalado**: Ajuste automático de recursos según demanda
+* **Balanceo de Carga**: Distribución óptima de solicitudes
+* **Despliegues Blue/Green**: Actualizaciones sin downtime
+* **Monitoreo Integrado**: Métricas y logs centralizados
+
+2.4. Seguridad y Compliance
+=========================
+
+2.4.1. Sistema de Autenticación
+-----------------------------
+
+* **OAuth 2.0**: Autenticación segura para usuarios
+* **JWT Tokens**: Sesiones stateless y seguras
+* **2FA**: Autenticación de dos factores para cuentas administrativas
+
+2.4.2. Protección de Datos
+------------------------
+
+* **Encriptación AES-256**: Protección de datos sensibles
+* **Gestión de Secretos**: HashiCorp Vault para credenciales
+* **Auditoría de Acceso**: Registro completo de accesos y modificaciones
+
+2.5. Monitoreo y Observabilidad
+============================
+
+2.5.1. Stack de Monitoreo
+------------------------
+
+* **Prometheus**: Recopilación de métricas
+* **Grafana**: Visualización de dashboards
+* **ELK Stack**: Procesamiento de logs
+* **AlertManager**: Gestión de alertas y notificaciones
+
+2.5.2. Métricas Clave
+-------------------
+
+* **Latencia de API**: Tiempo de respuesta de endpoints
+* **Uso de Recursos**: CPU, memoria y almacenamiento
+* **Tasa de Éxito**: Porcentaje de operaciones exitosas
+* **Detecciones de Bots**: Número de bloqueos por plataformas
+
+2.6. Integración con Blockchain
+============================
+
+2.6.1. Polygon Network
+--------------------
+
+* **NFTs de Recompensa**: Tokens para contribuyentes
+* **Sistema de Gobernanza**: Votaciones descentralizadas
+* **Marketplace de Plugins**: Transacciones seguras de plugins
+
+2.6.2. Polkadot Integration
+-------------------------
+
+* **Cross-Chain Bridges**: Interoperabilidad con otras blockchains
+* **Staking Rewards**: Recompensas por participación en la red
+
+2.7. Escalabilidad y Rendimiento
+===============================
+
+2.7.1. Horizontal Scaling
+-----------------------
+
+* **Microservicios**: Componentes independientes y escalables
+* **Message Queues**: Procesamiento asíncrono de tareas
+* **CDN**: Distribución global de contenido estático
+
+2.7.2. Optimización de Recursos
+-----------------------------
+
+* **Caching Estratégico**: Redis para datos frecuentes
+* **Database Sharding**: Particionamiento de bases de datos
+* **Load Balancing**: Distribución inteligente de carga
+
+2.8. Tecnologías Clave
+=====================
+
+2.8.1. Backend
+------------
+
+* **Python 3.9+**: Lenguaje principal del sistema
+* **Flask**: Framework web para API REST
+* **Celery**: Procesamiento de tareas asíncronas
+* **SQLAlchemy**: ORM para bases de datos
+
+2.8.2. Frontend
+-------------
+
+* **React 18+**: Biblioteca de componentes
+* **Redux**: Gestión de estado de la aplicación
+* **Material-UI**: Sistema de diseño consistente
+
+2.8.3. IA y Machine Learning
+--------------------------
+
+* **OpenAI API**: Procesamiento de lenguaje natural
+* **Whisper**: Transcripción de audio
+* **Stable Diffusion**: Generación de imágenes
+* **TensorFlow/PyTorch**: Modelos personalizados
+
+2.8.4. DevOps y CI/CD
+-------------------
+
+* **Docker**: Contenedorización de servicios
+* **Kubernetes**: Orquestación de contenedores
+* **GitHub Actions**: Pipelines de integración continua
+* **Terraform**: Infraestructura como código
