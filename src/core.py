@@ -159,6 +159,81 @@ For more information, please refer to the documentation.
             self.logger.error(f"Error executing command {command}: {e}")
             raise
 
+    # Blockchain commands
+    def mint_nft(self, metadata: Dict[str, Any], to_address: str):
+        """Mint an NFT using Polygon blockchain."""
+        from src.blockchain.polygon_nft import PolygonNFT
+        polygon_nft = PolygonNFT(self.config.get("polygon_private_key"))
+        return polygon_nft.mint_nft(metadata, to_address)
+
+    def transfer_nft(self, token_id: int, to_address: str):
+        """Transfer an NFT to another address."""
+        from src.blockchain.polygon_nft import PolygonNFT
+        polygon_nft = PolygonNFT(self.config.get("polygon_private_key"))
+        return polygon_nft.transfer_nft(token_id, to_address)
+
+    def cross_chain_transfer(self, amount: float, to_chain: str, to_address: str, asset_id: str = "DOT"):
+        """Transfer assets between chains using Polkadot."""
+        from src.blockchain.polkadot_crosschain import PolkadotCrossChain
+        polkadot = PolkadotCrossChain(self.config.get("polkadot_private_key"))
+        return polkadot.transfer_assets(amount, to_chain, to_address, asset_id)
+
+    def create_dao_proposal(self, title: str, description: str, voting_duration: int):
+        """Create a DAO governance proposal."""
+        from src.blockchain.dao_governance import DAOGovernance
+        dao = DAOGovernance(self.config.get("dao_contract_address"), self.config.get("dao_private_key"))
+        return dao.create_proposal(title, description, voting_duration, self.config.get("proposer_address"))
+
+    def vote_on_proposal(self, proposal_id: int, support: bool):
+        """Vote on a DAO proposal."""
+        from src.blockchain.dao_governance import DAOGovernance
+        dao = DAOGovernance(self.config.get("dao_contract_address"), self.config.get("dao_private_key"))
+        return dao.vote_on_proposal(proposal_id, self.config.get("voter_address"), support)
+
+    # AI commands
+    def transcribe_audio(self, audio_file_path: str, language: str = "en"):
+        """Transcribe audio using Whisper."""
+        from src.ai.voice_chat import VoiceChat
+        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
+        return voice_chat.transcribe_audio(audio_file_path, language)
+
+    def generate_response(self, prompt: str, language: str = "en"):
+        """Generate a response using GPT-4."""
+        from src.ai.voice_chat import VoiceChat
+        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
+        return voice_chat.generate_response(prompt, language)
+
+    def process_voice_message(self, audio_file_path: str, user_language: str = "en"):
+        """Process a complete voice message."""
+        from src.ai.voice_chat import VoiceChat
+        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
+        return voice_chat.process_voice_message(audio_file_path, user_language)
+
+    def translate_text(self, text: str, source_language: str, target_language: str):
+        """Translate text between languages."""
+        from src.ai.multilingual import MultilingualSupport
+        multilingual = MultilingualSupport()
+        return multilingual.translate_text(text, source_language, target_language)
+
+    # Infrastructure commands
+    def deploy_to_cloud(self, application_config: Dict[str, Any]):
+        """Deploy application to all cloud providers."""
+        from src.infra.multi_cloud import MultiCloudDeployment
+        multi_cloud = MultiCloudDeployment()
+        return multi_cloud.deploy_to_all_clouds(application_config)
+
+    def scale_deployment(self, deployment_name: str, replicas: int, namespace: str = "default"):
+        """Scale a Kubernetes deployment."""
+        from src.infra.kubernetes import KubernetesOrchestrator
+        k8s = KubernetesOrchestrator()
+        return k8s.scale_deployment(deployment_name, replicas, namespace)
+
+    def auto_scale(self):
+        """Perform auto-scaling based on demand."""
+        from src.infra.auto_scaling import AutoScaler
+        auto_scaler = AutoScaler()
+        return auto_scaler.auto_scale()
+
 if __name__ == "__main__":
     app = TTBT5App()
     print("TTBT5 Application")
