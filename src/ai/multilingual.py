@@ -11,7 +11,7 @@ class MultilingualSupport:
     
     def __init__(self):
         """Initialize the multilingual support manager."""
-        self.supported_languages = {
+        self.supported_languages: Dict[str, str] = {
             "en": "English",
             "es": "Spanish",
             "fr": "French",
@@ -20,7 +20,7 @@ class MultilingualSupport:
         }
         self.translations = self._load_translations()
         
-    def _load_translations(self):
+    def _load_translations(self) -> Dict[str, Dict[str, str]]:
         """Load translations from a JSON file or database."""
         # TODO: Implement actual translation loading
         # This would typically load from a file or database
@@ -63,7 +63,7 @@ class MultilingualSupport:
             }
         }
     
-    def translate_text(self, text: str, source_language: str, target_language: str):
+    def translate_text(self, text: str, source_language: str, target_language: str) -> str:
         """Translate text from source language to target language."""
         print(f"Translating text from {source_language} to {target_language}: {text}")
         # TODO: Implement actual translation
@@ -86,15 +86,15 @@ class MultilingualSupport:
             
         return translated_text
     
-    def get_supported_languages(self):
+    def get_supported_languages(self) -> Dict[str, str]:
         """Get a list of supported languages."""
         return self.supported_languages
     
-    def get_language_name(self, language_code: str):
+    def get_language_name(self, language_code: str) -> str:
         """Get the full name of a language by its code."""
         return self.supported_languages.get(language_code, "Unknown")
     
-    def localize_text(self, key: str, language: str):
+    def localize_text(self, key: str, language: str) -> str:
         """Get localized text for a specific key and language."""
         if language in self.translations and key in self.translations[language]:
             return self.translations[language][key]
@@ -105,7 +105,7 @@ class MultilingualSupport:
             # Fallback to the key itself
             return key
     
-    def add_translation(self, key: str, translations: Dict[str, str]):
+    def add_translation(self, key: str, translations: Dict[str, str]) -> None:
         """Add a new translation for a key."""
         for language, text in translations.items():
             if language in self.translations:
