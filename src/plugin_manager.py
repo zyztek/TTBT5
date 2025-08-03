@@ -54,7 +54,7 @@ class PluginManager:
                 try:
                     # For demonstration, we'll pass a mock bot instance
                     # In a real implementation, this would be the actual bot instance
-                    mock_bot = type('MockBot', (), {'logger': type('MockLogger', (), {'info': lambda self, msg: print(f"[{plugin_name}] {msg}"))})())
+                    mock_bot = type('MockBot', (), {'logger': type('MockLogger', (), {'info': lambda self, msg: print(f"[{plugin_name}] {msg}")})()})
                     result = hook_func(mock_bot, *args, **kwargs)
                     results.append(result)
                 except Exception as e:
@@ -67,7 +67,7 @@ class PluginManager:
             module = self.plugins[plugin_name]
             if hasattr(module, 'on_unload'):
                 try:
-                    mock_bot = type('MockBot', (), {'logger': type('MockLogger', (), {'info': lambda self, msg: print(f"[{plugin_name}] {msg}"))})())
+                    mock_bot = type('MockBot', (), {'logger': type('MockLogger', (), {'info': lambda self, msg: print(f"[{plugin_name}] {msg}")})()})
                     module.on_unload(mock_bot)
                 except Exception as e:
                     print(f"Error unloading plugin {plugin_name}: {e}")
