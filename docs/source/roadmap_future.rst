@@ -1,62 +1,62 @@
-Roadmap Futuro
+Roadmap Future
 ==============
 
-Next-Gen Roadmap (2031-2032)
-----------------------------
+Fase 7: IA Multimodal (2031)
+-----------------------------
 
-TTBT2 continuará evolucionando con nuevas funcionalidades y mejoras:
+**Objetivo:** Combinar texto, voz y visión para bots autónomos.
 
-+------------+--------------------------------+------------------+
-| Fase       | Objetivo                       | Herramientas     |
-+============+================================+==================+
-| Phase 7    | Multimodal Bots                | OpenAI API, Whisper, Stable Diffusion |
-+------------+--------------------------------+------------------+
-| Phase 8    | AR Plugins Marketplace         | Unity, React Native |
-+------------+--------------------------------+------------------+
-| Phase 9    | AI-Powered Bot Optimization    | HuggingFace, PyTorch, Kubernetes Jobs |
-+------------+--------------------------------+------------------+
+### Características Principales
 
-Fase 7: Multimodal Bots
------------------------
+1. **Integración de Voz y Visión**: 
+   - **Síntesis de voz** avanzada con emociones (felicidad, tristeza, empatía).
+   - **Reconocimiento de objetos en 3D** para interacción con el entorno.
+   - **Integración con Lentes de Realidad Aumentada** para asistente visual.
 
-Combinar voz, texto y video para interacciones hiper-realistas.
+### Tecnología
 
-.. code-block:: python
+- **Modelos Multimodales**: Uso de arquitecturas como Flamingo/GNUBender.
+- **Síntesis de Voz Emocional**: Generación de voz con énfasis emocional.
+- **Integración de Visión**: Detección de objetos en 3D con cámaras estéreo.
 
-   # src/ai/multimodal.py
-   class MultimodalBot:
-       def process(self, audio, text, image):
-           transcript = whisper.transcribe(audio)
-           response_text = gpt4.generate(text)
-           response_image = stable_diffusion.generate(response_text)
-           return {
-               "audio": whisper.speak(response_text),
-               "image": response_image
-           }
+Fase 8: Mercado de Plugins AR (2031-2032)
+------------------------------------------
 
-Fase 8: AR Plugins Marketplace
--------------------------------
+### Características
 
-Crear un marketplace descentralizado para plugins de realidad aumentada.
+1. **Ecosistema de Plugins AR**:
+   - **Desarrollo de Plugins de Realidad Aumentada**.
+   - **Publicación en el Marketplace**.
 
-.. code-block:: solidity
+### Tecnología
 
-   // contracts/ARMarketplace.sol
-   contract ARMarketplace {
-       function listPlugin(string memory pluginHash, uint256 price) external {
-           // Listar plugin en el marketplace
-       }
-   }
+- **Integración con Unity/Unreal**.
+- **Sistema de monetización** para desarrolladores.
 
-Fase 9: AI-Powered Bot Optimization
------------------------------------
+Fase 9: Optimización Auto-Asistida (2032-2033)
+-----------------------------------------------
 
-Entrenar LLMs para auto-ajustar el comportamiento de los bots basado en feedback.
+### Características
 
-.. code-block:: python
+1. **Auto-Optimización de Rendimiento**:
+   - **Ajuste automático de hiperparámetros**.
+   - **Detección de Anomalías**.
 
-   # src/ai/optimization.py
-   class BotOptimizer:
-       def optimize_behavior(self, feedback_data):
-           # Ajustar comportamiento basado en feedback
-           return optimized_behavior
+### Tecnología
+
+- **Aprendizaje por Refuerzo (Reinforcement Learning)**.
+- **AutoML** para arquitectura de redes neuronales.
+
+Futuro Lejano (2033+)
+----------------------
+
+### Visión
+
+- **Sistemas Cognitivos Completos**: IA con razonamiento de sentido común.
+  
+### Tecnología
+
+- **Neurociencia Computacional**.
+- **Ingeniería Inversa de Modelos Cognitivos**.
+
+</

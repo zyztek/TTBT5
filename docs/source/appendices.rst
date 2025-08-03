@@ -1,108 +1,123 @@
-Apéndices
-=========
+Appendices
+==========
 
-Código Clave
-------------
+Key Code and Scripts
+--------------------
 
-Contrato DAO
-~~~~~~~~~~~~
+This section contains key code snippets and scripts used in the TTBT2 project.
 
-.. code-block:: solidity
+Ethics Compliance Code
+^^^^^^^^^^^^^^^^^^^^^^
 
-   // contracts/TTBT2DAO.sol
-   pragma solidity ^0.8.0;
+.. code-block:: python
 
-   import "@openzeppelin/contracts/governance/Governor.sol";
-   import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
+    # src/core/audit.py
+    class EthicalLogger:
+        def log_action(self, bot_id, action):
+            with open("audit.log", "a") as f:
+                f.write(f"{datetime.now()} | {bot_id} | {action}\n")
 
-   contract TTBT2DAO is Governor, GovernorSettings {
-       constructor()
-           Governor("TTBT2DAO")
-           GovernorSettings(
-               1 days,    // Tiempo de proposición
-               7 days,    // Tiempo de votación
-               5000       // Cuórum requerido
-           ) {}
-
-       function propose(
-           address[] memory targets,
-           uint256[] memory values,
-           bytes[] memory calldatas,
-           string memory description
-       ) public override returns (uint256) {
-           require(
-               msg.sender.balanceOf(msg.sender) >= 100,
-               "No tienes suficientes NFTs para proponer"
-           );
-           return super.propose(targets, values, calldatas, description);
-       }
-   }
-
-Contrato de NFTs de Audio
-~~~~~~~~~~~~~~~~~~~~~~~~~
+DAO Smart Contract
+^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: solidity
 
-   // contracts/AudioNFT.sol
-   pragma solidity ^0.8.0;
+    // contracts/TTBT2DAO.sol
+    pragma solidity ^0.8.0;
 
-   import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/governance/Governor.sol";
+    import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 
-   contract TTBT2AudioNFT is ERC721 {
-       struct AudioNFT {
-           string audioHash;
-           address owner;
-           uint256 likes;
-       }
+    contract TTBT2DAO is Governor, GovernorSettings {
+        constructor()
+            Governor("TTBT2DAO")
+            GovernorSettings(
+                1 days,    // Tiempo de proposición
+                7 days,    // Tiempo de votación
+                5000       // Cuórum requerido
+            ) {}
 
-       mapping(uint256 => AudioNFT) public audioNFTs;
+        function propose(
+            address[] memory targets,
+            uint256[] memory values,
+            bytes[] memory calldatas,
+            string memory description
+        ) public override returns (uint256) {
+            require(
+                msg.sender.balanceOf(msg.sender) >= 100,
+                "No tienes suficientes NFTs para proponer"
+            );
+            return super.propose(targets, values, calldatas, description);
+        }
+    }
 
-       constructor() ERC721("TTBT2AudioNFT", "T2AUDIO") {}
-
-       function mintAudioNFT(string memory _audioHash) external returns (uint256) {
-           uint256 tokenId = audioNFTs.length;
-           _safeMint(msg.sender, tokenId);
-           audioNFTs[tokenId] = AudioNFT({
-               audioHash: _audioHash,
-               owner: msg.sender,
-               likes: 0
-           });
-           return tokenId;
-       }
-   }
-
-Script de Despliegue Final
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Deployment Script
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   # deploy_prod_final.sh
-   #!/bin/bash
-   set -e
+    # deploy_prod_final.sh
+    #!/bin/bash
+    set -e
 
-   echo "Deploying Terraform..."
-   terraform apply -auto-approve
+    echo "Deploying Terraform..."
+    terraform apply -auto-approve
 
-   echo "Deploying Kubernetes..."
-   kubectl apply -f k8s/prod/
+    echo "Deploying Kubernetes..."
+    kubectl apply -f k8s/prod/
 
-   echo "Updating Helm Charts..."
-   helm upgrade ttbt2 ./charts/ttbt2 --install
+    echo "Updating Helm Charts..."
+    helm upgrade ttbt2 ./charts/ttbt2 --install
 
-   echo "Deploying marketplace NFTs..."
-   python scripts/mint_initial_nfts.py
+    echo "Deploying marketplace NFTs..."
+    python scripts/mint_initial_nfts.py
 
-   echo "Final checks..."
-   kubectl rollout status deployment/ttbt2
+    echo "Final checks..."
+    kubectl rollout status deployment/ttbt2
 
-Queries de Prometheus
-~~~~~~~~~~~~~~~~~~~~~
+Prometheus Queries
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: promql
 
-   # Métricas clave de TTBT2
-   avg(ttbt2_proxy_usage)
-   rate(ttbt2_nft_sales_total[1h])
-   count(ttbt2_active_plugins)
-   avg by (cloud_provider) (ttbt2_voice_response_time_seconds)
-   count(ttbt2_dao_proposals{status="active"})
+    # Average proxy usage
+    avg(ttbt2_proxy_usage)
+
+    # Rate of NFT sales
+    rate(ttbt2_nft_sales_total[1h])
+
+    # Count of active plugins
+    count(ttbt2_active_plugins)
+
+Multi-Cloud DOT Diagram
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: dot
+
+    digraph MultiCloud {
+        node [shape=box, style=filled];
+        subgraph AWS {
+            label="AWS";
+            color=darkgreen;
+            s3 [label="S3 (Storage)", fillcolor="#90ee90"];
+            ecs [label="ECS (Compute)", fillcolor="#90ee90"];
+        }
+
+        subgraph GCP {
+            label="Google Cloud";
+            color=darkblue;
+            gcs [label="GCS", fillcolor="#add8e6"];
+            gke [label="GKE", fillcolor="#add8e6"];
+        }
+
+        subgraph Azure {
+            label="Azure";
+            color=purple;
+            blob [label="Blob Storage", fillcolor="#dda0dd"];
+            aks [label="AKS", fillcolor="#dda0dd"];
+        }
+
+        // Conexiones
+        ecs -> gke [label="Traffic Load Balancing", color=black];
+        aks -> s3 [label="Backup", color=black];
+    }

@@ -1,123 +1,56 @@
-Despliegue y Monitoreo
-======================
+Deployment & Monitoring
+=====================
 
-Automated Deployment Pipeline
------------------------------
+Deployment Strategy
+------------------
 
-TTBT2 utiliza un pipeline de despliegue automatizado para garantizar despliegues sin tiempo de inactividad en múltiples proveedores de nube.
+The TTBT2 system is designed for high availability and scalability using a multi-cloud architecture.
 
-.. code-block:: bash
+### Multi-Cloud Infrastructure
 
-   # deploy_prod_final.sh
-   #!/bin/bash
-   set -e
+The system is deployed across multiple cloud providers to ensure high availability and fault tolerance:
 
-   echo "Deploying Terraform..."
-   terraform apply -auto-approve
+1. **AWS (Primary)**
+   - Amazon EKS for Kubernetes orchestration
+   - Amazon S3 for storage
+   - Amazon CloudFront for CDN
 
-   echo "Deploying Kubernetes..."
-   kubectl apply -f k8s/prod/
+2. **Google Cloud Platform**
+   - Google Kubernetes Engine (GKE) for redundancy
+   - Cloud Storage for backups
+   - Cloud CDN for global content delivery
 
-   echo "Updating Helm Charts..."
-   helm upgrade ttbt2 ./charts/ttbt2 --install
+3. **Microsoft Azure**
+   - Azure Kubernetes Service (AKS) for additional redundancy
+   - Azure Blob Storage for archival
+   - Azure CDN for regional optimization
 
-   echo "Deploying marketplace NFTs..."
-   python scripts/mint_initial_nfts.py
+Deployment Pipeline
+------------------
 
-   echo "Final checks..."
-   kubectl rollout status deployment/ttbt2
+The deployment pipeline is fully automated using GitHub Actions and Terraform:
 
-Multi-Cloud Load Testing
-------------------------
+1. Code is pushed to the repository
+2. GitHub Actions triggers the CI/CD pipeline
+3. Automated testing and security scans are performed
+4. Terraform applies the infrastructure changes
+5. Docker images are built and pushed to the container registry
+6. Kubernetes deployments are updated with zero downtime
+7. Health checks and rollbacks are automated
 
-Para garantizar la estabilidad en entornos multizonales, se realizan pruebas de carga globales.
+Monitoring and Observability
+--------------------------
 
-.. code-block:: python
+We use a comprehensive monitoring stack:
 
-   # locustfile_global.py
-   from locust import HttpUser, task
+1. **Prometheus** for metrics collection
+2. **Grafana** for dashboards and alerting
+3. **ELK Stack** for log aggregation and analysis
+4. **Prometheus Node Exporter** for system-level metrics
+5. **Blackbox Exporter** for end-to-end probing
 
-   class GlobalUser(HttpUser):
-       @task
-       def test_voice_chat(self):
-           self.client.post("/api/voice/chat", files={"audio": "test_audio.mp3"})
-
-       @task
-       def test_azure_proxy(self):
-           self.client.get("https://azure.ttbt2.com/proxy")
-
-Security Automation
--------------------
-
-Se implementan escaneos de seguridad automatizados diariamente.
-
-.. code-block:: yaml
-
-   # .github/workflows/security_daily.yml
-   name: Daily Security Scan
-   on:
-     schedule:
-       - cron: "0 5 * * *"
-
-   jobs:
-     scan:
-       runs-on: ubuntu-latest
-       steps:
-         - name: OWASP ZAP Scan
-           run: zap-cli scan --url https://app.ttbt2.com --report
-         - name: Bandit Scan
-           run: bandit -r src/ -ll -x external_deps
-         - name: Upload Reports
-           uses: actions/upload-artifact@v3
-           with:
-             name: security-reports
-             path: ./reports/security/
-
-Monitoring Plan
----------------
-
-Daily/Weekly Processes
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-   # cron_jobs.sh
-   0 0 * * * /backup.sh          # Daily backup
-   30 5 * * 1 /security_scan.sh  # Weekly security audit
-
-Grafana Alert Rules
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   # alerts.yml
-   - name: High Voice Latency
-     condition: avg(ttbt2_voice_response_time_seconds{env="prod"}) > 1.5
-     message: "Voice response time exceeded 1.5s!"
-
-   - name: Low NFT Sales
-     condition: sum(ttbt2_audio_nft_sales_total) < 10 over 1h
-     message: "Sales dropped below threshold!"
-
-Final Code & Infrastructure Cleanup
------------------------------------
-
-Remove Beta/Debug Code
-~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Remove debug print statements
-   # print(f"Bot {id} executed action {action}")
-
-Optimize Docker Images
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: docker
-
-   # Dockerfile.slim
-   FROM python:3.9-slim
-   COPY requirements.txt .
-   RUN pip install -r requirements.txt --no-cache-dir
-   COPY src/ .
-   CMD ["python", "main.py"]
+Key metrics monitored:
+- System health and resource utilization
+- Application performance and error rates
+- Business metrics (user engagement, plugin usage)
+- Security events and anomalies

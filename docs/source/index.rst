@@ -1,9 +1,9 @@
-TTBT2 - Documentación Final
-============================
+TTBT2 Final Report v2.4.0
+=========================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contenidos:
+   :caption: Contents:
 
    executive_summary
    technical_architecture
@@ -15,4 +15,9 @@ TTBT2 - Documentación Final
    roadmap_future
    appendices
 
-.. todolist::
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -1,4 +1,10 @@
 {
     "GithubGistExplorer.explorer.gistAscending": true,
-    "GithubGistExplorer.explorer.subscriptionAscending": true
+    "GithubGistExplorer.explorer.subscriptionAscending": true,
+    "markdown.validate.ignoredLinks": [
+        "grafana_dao_participation.png",
+        "grafana_plugins_growth.png",
+        "coverage_badge.png",
+        "architecture.png"
+    ]
 }

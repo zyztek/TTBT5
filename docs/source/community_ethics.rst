@@ -1,41 +1,38 @@
-Comunidad y Ética
+Community & Ethics
 =================
 
-Políticas de Uso Responsable
-----------------------------
+Community Guidelines
+------------------
 
-TTBT2 se compromete a garantizar el uso ético y responsable de sus sistemas. Las siguientes políticas están en vigor:
+The TTBT2 project is built with a strong foundation of community and ethical principles.
 
-1. **Prohibición de Spam**: No se permiten acciones automatizadas que violen las normas de las plataformas sociales.
-2. **Transparencia**: Todos los bots deben incluir un sistema de auditoría que registre sus acciones.
-3. **Privacidad**: Los datos de los usuarios se procesan de forma anónima y se eliminan después de 30 días.
+### Open Source Community
 
-Programa de Desarrolladores de Plugins
---------------------------------------
+- **Open Source**: Fully open source under the MIT license
+- **Contributions**: Welcomes all contributions through pull requests
+- **Discord**: Active community for support and collaboration
+- **Monthly Community Calls**: Regular community meetings
 
-Para fomentar la contribución comunitaria, TTBT2 ofrece:
+### Ethical AI Usage
 
-- **Recompensas**: 70% de los ingresos por plugins vendidos.
-- **NFTs**: Tokens de reconocimiento para contribuyentes destacados.
-- **DAO**: Voto en el sistema de gobernanza para decidir nuevas funcionalidades.
+We are committed to the responsible development and deployment of AI systems.
 
-.. code-block:: solidity
+### Ethics in AI
 
-   // contracts/DAO.sol
-   contract TTBT2DAO {
-       function rewardTopContributors() external {
-           for (uint i = 0; i < contributors.length; i++) {
-               mintNFT(contributors[i], "gold");
-           }
-       }
-   }
+- **Transparency**: Open source and auditable
+- **Fairness**: Equal access and non-discrimination
+- **Human Oversight**: Human-in-the-loop for critical decisions
+- **Privacy by Design**: Privacy-first architecture
 
-Auditoría de Seguridad
-----------------------
+### Compliance
 
-Se realizan auditorías mensuales de seguridad para garantizar la integridad del sistema:
+- **GDPR**: Full compliance with GDPR for EU users
+- **CCPA**: California Consumer Privacy Act compliance
+- **Ongoing Compliance**: Regular audits and updates to meet evolving regulations
 
-.. code-block:: bash
+### Community Guidelines
 
-   # audit_monthly.sh
-   slither contracts/*.sol && safety check && codecov --token=TOKEN
+1. **Inclusive Community**: We are committed to a welcoming and inclusive community
+2. **Respect**: Treat all community members with respect
+3. **Constructive**: Provide constructive feedback
+4. **Learn and Teach**: Encourage learning and teaching

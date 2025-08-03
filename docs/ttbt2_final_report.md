@@ -3,6 +3,7 @@
 ## Executive Summary
 
 **TTBT2 Final Metrics (2030):**
+
 - **Active Users**: 50,000+
 - **Plugins Ecosystem**: 200+ (Telegram, Email, AR, Voice NFTs)
 - **Blockchain Transactions**: 15,000+ NFTs minted
@@ -10,6 +11,7 @@
 - **Multi-Cloud Uptime**: 99.98%
 
 **Key Features:**
+
 1. **AI Voice Chat**: Respuestas dinámicas en 5 idiomas.
 2. **DAO Governance**: 300+ miembros activos.
 3. **AR Marketplace**: Visualización 3D de plugins.
@@ -22,6 +24,7 @@
 ## Development Plan
 
 **Fases Completadas (2024-2030):**
+
 | **Phase** | **Goal** | **Status** |
 |-----------|----------|------------|
 | Core System | Evasion + Behavior Logic | ✅ 100% |
@@ -56,6 +59,7 @@ graph TD
 ## Ethics & Compliance
 
 **1. Audit Logs:**
+
 ```python
 # src/core/audit.py
 class EthicalLogger:
@@ -65,5 +69,6 @@ class EthicalLogger:
 ```
 
 **2. GDPR Compliance:**
+
 - Datos anónimos por defecto.
 - Opción para borrar logs después de 30 días.
