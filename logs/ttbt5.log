@@ -216,3 +216,7 @@
 2025-08-03 20:56:34.745 | INFO     | src.core:__init__:40 - Configuration loaded
 2025-08-03 20:56:34.745 | INFO     | src.core:__init__:48 - Plugin manager initialized
 2025-08-03 20:56:34.745 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:20:58.785 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:20:58.785 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:20:58.785 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:20:58.786 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
