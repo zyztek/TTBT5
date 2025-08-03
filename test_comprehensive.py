@@ -18,7 +18,7 @@ from src.blockchain.polkadot_crosschain import PolkadotCrossChain
 from src.blockchain.dao_governance import DAOGovernance
 from src.ai.voice_chat import VoiceChat
 from src.ai.multilingual import MultilingualSupport
-from src.ai.automated_testing import AutomatedTester
+from src.ai.automated_testing import AutomatedTesting
 from src.infra.multi_cloud import MultiCloudDeployment
 from src.infra.kubernetes import KubernetesOrchestrator
 from src.infra.auto_scaling import AutoScaler
