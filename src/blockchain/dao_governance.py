@@ -135,3 +135,26 @@ if __name__ == "__main__":
     
     # Add members
     dao.add_member("0x1234567890123456789012345678901234567890")
+    dao.add_member("0xabcdef123456789012345678901234567890abcd")
+    print(f"Member count: {dao.get_member_count()}")
+    
+    # Create a proposal
+    proposal_id = dao.create_proposal(
+        "Add new plugin support",
+        "Proposal to add support for new plugins in the TTBT5 application",
+        86400,  # 24 hours in seconds
+        "0x1234567890123456789012345678901234567890"
+    )
+    print(f"Created proposal with ID: {proposal_id}")
+    
+    # Vote on the proposal
+    dao.vote_on_proposal(proposal_id, "0x1234567890123456789012345678901234567890", True)
+    dao.vote_on_proposal(proposal_id, "0xabcdef123456789012345678901234567890abcd", True)
+    
+    # Execute the proposal
+    execute_result = dao.execute_proposal(proposal_id)
+    print(f"Execute result: {execute_result}")
+    
+    # Get proposal info
+    proposal_info = dao.get_proposal(proposal_id)
+    print(f"Proposal info: {proposal_info}")
