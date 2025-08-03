@@ -135,3 +135,22 @@
 2025-08-03 10:54:21.371 | INFO     | src.core:__init__:43 - Configuration loaded
 2025-08-03 10:54:21.372 | INFO     | src.core:__init__:51 - Plugin manager initialized
 2025-08-03 10:54:21.372 | INFO     | src.core:__init__:59 - TTBT5 Application initialized successfully
+2025-08-03 10:54:51.370 | INFO     | src.core:__init__:39 - Initializing TTBT5 Application
+2025-08-03 10:54:51.371 | INFO     | src.core:__init__:43 - Configuration loaded
+2025-08-03 10:54:51.371 | INFO     | src.core:__init__:51 - Plugin manager initialized
+2025-08-03 10:54:51.371 | INFO     | src.core:__init__:59 - TTBT5 Application initialized successfully
+2025-08-03 10:54:51.374 | INFO     | src.core:__init__:39 - Initializing TTBT5 Application
+2025-08-03 10:54:51.374 | INFO     | src.core:__init__:43 - Configuration loaded
+2025-08-03 10:54:51.374 | INFO     | src.core:__init__:51 - Plugin manager initialized
+2025-08-03 10:54:51.375 | INFO     | src.core:__init__:59 - TTBT5 Application initialized successfully
+2025-08-03 10:54:51.377 | INFO     | src.core:__init__:39 - Initializing TTBT5 Application
+2025-08-03 10:54:51.377 | INFO     | src.core:__init__:43 - Configuration loaded
+2025-08-03 10:54:51.377 | INFO     | src.core:__init__:51 - Plugin manager initialized
+2025-08-03 10:54:51.378 | INFO     | src.core:__init__:59 - TTBT5 Application initialized successfully
+2025-08-03 10:54:51.381 | INFO     | src.core:__init__:39 - Initializing TTBT5 Application
+2025-08-03 10:54:51.381 | INFO     | src.core:__init__:43 - Configuration loaded
+2025-08-03 10:54:51.381 | INFO     | src.core:__init__:51 - Plugin manager initialized
+2025-08-03 10:54:51.382 | INFO     | src.core:__init__:59 - TTBT5 Application initialized successfully
+2025-08-03 10:54:51.385 | INFO     | core.account_manager:_load_accounts_from_file:118 - Attempting to load accounts from: dummy_accounts.json
+2025-08-03 10:54:51.386 | INFO     | core.account_manager:_load_accounts_from_file:152 - Processed 2 accounts from 'dummy_accounts.json'.
+2025-08-03 10:54:51.386 | INFO     | core.account_manager:__init__:102 - Successfully loaded 2 accounts from 'dummy_accounts.json'.
