@@ -13,7 +13,7 @@ from datetime import datetime
 from src.config import get_config
 from src.logger import get_logger
 from src.commands import CommandProcessor
-from ttbt2_source.core.plugin_manager import PluginManager
+from src.plugin_manager import PluginManager
 from datetime import datetime
 from typing import Dict, List
 from dataclasses import dataclass
