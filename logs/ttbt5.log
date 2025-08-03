@@ -350,3 +350,11 @@
 2025-08-03 21:42:13.917 | INFO     | src.core:load_plugin:136 - Loading plugin from test_plugin.py
 2025-08-03 21:42:13.919 | INFO     | src.core:load_plugin:138 - Plugin loaded from test_plugin.py
 2025-08-03 21:42:13.919 | INFO     | src.core:run_command:153 - Command load_plugin executed successfully
+2025-08-03 21:42:39.918 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:42:39.919 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:42:39.919 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:42:39.919 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:42:39.920 | INFO     | src.core:run_command:151 - Executing command: exec_hook
+2025-08-03 21:42:39.920 | INFO     | src.core:execute_hook:143 - Executing hook on_load with args ()
+2025-08-03 21:42:39.920 | INFO     | src.core:execute_hook:145 - Hook on_load executed with result: []
+2025-08-03 21:42:39.920 | INFO     | src.core:run_command:153 - Command exec_hook executed successfully
