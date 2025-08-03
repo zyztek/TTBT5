@@ -66,6 +66,24 @@ class TTBT5App:
         self.command_processor.register_command("info", self.get_info)
         self.command_processor.register_command("load_plugin", self.load_plugin)
         self.command_processor.register_command("exec_hook", self.execute_hook)
+        
+        # Blockchain commands
+        self.command_processor.register_command("mint_nft", self.mint_nft)
+        self.command_processor.register_command("transfer_nft", self.transfer_nft)
+        self.command_processor.register_command("cross_chain_transfer", self.cross_chain_transfer)
+        self.command_processor.register_command("create_dao_proposal", self.create_dao_proposal)
+        self.command_processor.register_command("vote_on_proposal", self.vote_on_proposal)
+        
+        # AI commands
+        self.command_processor.register_command("transcribe_audio", self.transcribe_audio)
+        self.command_processor.register_command("generate_response", self.generate_response)
+        self.command_processor.register_command("process_voice_message", self.process_voice_message)
+        self.command_processor.register_command("translate_text", self.translate_text)
+        
+        # Infrastructure commands
+        self.command_processor.register_command("deploy_to_cloud", self.deploy_to_cloud)
+        self.command_processor.register_command("scale_deployment", self.scale_deployment)
+        self.command_processor.register_command("auto_scale", self.auto_scale)
     
     def get_status(self) -> Dict:
         """Get the current application status."""
