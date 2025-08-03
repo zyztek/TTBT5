@@ -7,13 +7,8 @@ This file allows installing the application as a package.
 from setuptools import setup, find_packages
 
 # List of dependencies
-# Add any third-party dependencies here
-# Example:
-# install_requires=[
-#     'requests',
-#     'flask',
-#     'sqlalchemy'
-# ]
+with open("requirements.txt", "r") as f:
+    requirements = [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 setup(
     name='ttbt5',
@@ -28,12 +23,9 @@ setup(
         ],
     },
     python_requires='>=3.6',
-    # Add any additional package information here
-    # For example:
-    # install_requires=[
-    #     'requests',
-    # ],
-    # tests_require=[
-    #     'pytest',
-    # ],
+    install_requires=requirements,
+    tests_require=[
+        'pytest',
+        'pytest-cov',
+    ],
 )
