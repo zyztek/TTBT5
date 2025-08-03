@@ -3,13 +3,12 @@ Voice Chat Module for TTBT5.
 Handles voice recognition and synthesis using Whisper and GPT-4.
 """
 
-import json
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 class VoiceChat:
     """Handles voice chat functionality with Whisper and GPT-4."""
     
-    def __init__(self, whisper_api_key: str = None, gpt4_api_key: str = None):
+    def __init__(self, whisper_api_key: Optional[str] = None, gpt4_api_key: Optional[str] = None):
         """
         Initialize the voice chat manager.
         
@@ -21,7 +20,7 @@ class VoiceChat:
         self.gpt4_api_key = gpt4_api_key
         self.supported_languages = ["en", "es", "fr", "de", "it"]
         
-    def transcribe_audio(self, audio_file_path: str, language: str = "en"):
+    def transcribe_audio(self, audio_file_path: str, language: str = "en") -> str:
         """Transcribe audio to text using Whisper."""
         print(f"Transcribing audio file: {audio_file_path} in language: {language}")
         # TODO: Implement actual Whisper transcription
@@ -29,7 +28,7 @@ class VoiceChat:
         transcription = "This is a sample transcription from Whisper."  # Mock transcription
         return transcription
     
-    def generate_response(self, prompt: str, language: str = "en"):
+    def generate_response(self, prompt: str, language: str = "en") -> str:
         """Generate a response using GPT-4."""
         print(f"Generating response for prompt: {prompt} in language: {language}")
         # TODO: Implement actual GPT-4 response generation
@@ -37,7 +36,7 @@ class VoiceChat:
         response = "This is a sample response from GPT-4."  # Mock response
         return response
     
-    def synthesize_speech(self, text: str, language: str = "en"):
+    def synthesize_speech(self, text: str, language: str = "en") -> str:
         """Synthesize speech from text."""
         print(f"Synthesizing speech for text: {text} in language: {language}")
         # TODO: Implement actual speech synthesis
@@ -45,7 +44,7 @@ class VoiceChat:
         audio_file_path = "/tmp/response.mp3"  # Mock audio file path
         return audio_file_path
     
-    def multilingual_support(self, text: str, source_language: str, target_language: str):
+    def multilingual_support(self, text: str, source_language: str, target_language: str) -> str:
         """Translate text between languages."""
         print(f"Translating text from {source_language} to {target_language}: {text}")
         # TODO: Implement actual translation
@@ -53,7 +52,7 @@ class VoiceChat:
         translated_text = f"Translated text: {text}"  # Mock translation
         return translated_text
     
-    def process_voice_message(self, audio_file_path: str, user_language: str = "en"):
+    def process_voice_message(self, audio_file_path: str, user_language: str = "en") -> Dict[str, Any]:
         """Process a complete voice message: transcribe, respond, synthesize."""
         print(f"Processing voice message from: {audio_file_path}")
         
