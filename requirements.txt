@@ -1,2 +1,18 @@
 # TTBT5 Application Requirements
-# Add required packages here when the TTBT2 plan is provided
+# Common dependencies for a Python application
+
+# Testing framework
+pytest>=6.0.0
+pytest-cov>=2.10.0
+
+# Code formatting and linting
+black>=21.0.0
+flake8>=3.8.0
+mypy>=0.812
+
+# Documentation generation
+sphinx>=4.0.0
+sphinx-rtd-theme>=0.5.0
+
+# Type hints for Python < 3.9
+typing-extensions>=3.7.4; python_version < "3.9"
