@@ -14,11 +14,11 @@ class AutomatedTesting:
     
     def __init__(self):
         """Initialize the automated testing manager."""
-        self.test_results = []
+        self.test_results: List[Dict[str, Any]] = []
         self.voice_chat = VoiceChat()
         self.multilingual = MultilingualSupport()
         
-    def run_voice_chat_tests(self):
+    def run_voice_chat_tests(self) -> List[Dict[str, Any]]:
         """Run automated tests for voice chat functionality."""
         print("Running voice chat tests...")
         
@@ -95,7 +95,7 @@ class AutomatedTesting:
                 r["test"].startswith("Speech synthesis") or 
                 r["test"].startswith("Complete voice message processing")]
     
-    def run_multilingual_tests(self):
+    def run_multilingual_tests(self) -> List[Dict[str, Any]]:
         """Run automated tests for multilingual support."""
         print("Running multilingual tests...")
         
@@ -154,7 +154,7 @@ class AutomatedTesting:
                 r["test"].startswith("Text translation") or 
                 r["test"].startswith("Text localization")]
     
-    def run_all_tests(self):
+    def run_all_tests(self) -> Dict[str, Any]:
         """Run all automated tests."""
         print("Running all automated tests...")
         
@@ -169,55 +169,3 @@ class AutomatedTesting:
         
         # Calculate summary
         passed = len([t for t in all_tests if t["status"] == "passed"])
-        failed = len([t for t in all_tests if t["status"] == "failed"])
-        
-        summary = {
-            "total_tests": len(all_tests),
-            "passed": passed,
-            "failed": failed,
-            "success_rate": (passed / len(all_tests)) * 100 if all_tests else 0
-        }
-        
-        return {
-            "test_results": all_tests,
-            "summary": summary
-        }
-    
-    def generate_test_report(self):
-        """Generate a detailed test report."""
-        test_data = self.run_all_tests()
-        
-        report = f"""
-TTBT5 AI Features - Automated Test Report
-=========================================
-
-Summary:
-- Total Tests: {test_data['summary']['total_tests']}
-- Passed: {test_data['summary']['passed']}
-- Failed: {test_data['summary']['failed']}
-- Success Rate: {test_data['summary']['success_rate']:.2f}%
-
-Detailed Results:
-"""
-        
-        for result in test_data["test_results"]:
-            status_symbol = "✓" if result["status"] == "passed" else "✗"
-            report += f"\n{status_symbol} {result['test']}: {result['status']}\n"
-            report += f"  Details: {result['details']}\n"
-        
-        return report
-
-# Example usage (for testing)
-if __name__ == "__main__":
-    # Create automated testing manager
-    tester = AutomatedTesting()
-    
-    # Run all tests and generate report
-    report = tester.generate_test_report()
-    print(report)
-    
-    # Save report to file
-    with open("/tmp/ai_test_report.txt", "w") as f:
-        f.write(report)
-    
-    print("Test report saved to /tmp/ai_test_report.txt")
