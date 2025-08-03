@@ -6,7 +6,7 @@ This module handles application configuration settings.
 
 import os
 import json
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 class Config:
     """Configuration class for the TTBT5 Application."""
