@@ -358,3 +358,51 @@
 2025-08-03 21:42:39.920 | INFO     | src.core:execute_hook:143 - Executing hook on_load with args ()
 2025-08-03 21:42:39.920 | INFO     | src.core:execute_hook:145 - Hook on_load executed with result: []
 2025-08-03 21:42:39.920 | INFO     | src.core:run_command:153 - Command exec_hook executed successfully
+2025-08-03 21:47:33.318 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.318 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.319 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.319 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.320 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.321 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.321 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.321 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.323 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.323 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.323 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.323 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.325 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.325 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.325 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.326 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.327 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.327 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.328 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.328 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.330 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.331 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.331 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.331 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.333 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.333 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.333 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.333 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.335 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.335 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.335 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.336 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.336 | INFO     | src.core:load_plugin:136 - Loading plugin from test_plugin.py
+2025-08-03 21:47:33.336 | INFO     | src.core:load_plugin:138 - Plugin loaded from test_plugin.py
+2025-08-03 21:47:33.337 | INFO     | src.core:execute_hook:143 - Executing hook on_load with args ()
+2025-08-03 21:47:33.337 | INFO     | src.core:execute_hook:145 - Hook on_load executed with result: ['Test plugin loaded']
+2025-08-03 21:47:33.339 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.339 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.339 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.339 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.341 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.341 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.341 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.342 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-03 21:47:33.343 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-03 21:47:33.343 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-03 21:47:33.344 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-03 21:47:33.344 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
