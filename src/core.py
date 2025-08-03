@@ -160,7 +160,7 @@ For more information, please refer to the documentation.
             raise
 
     # Blockchain commands
-    def mint_nft(self, metadata: Dict[str, Any], to_address: str):
+    def mint_nft(self, metadata: Dict[str, Any], to_address: str): # type: ignore
         """Mint an NFT using Polygon blockchain."""
         from src.blockchain.polygon_nft import PolygonNFT
         polygon_nft = PolygonNFT(self.config.get("polygon_private_key"))
@@ -216,7 +216,7 @@ For more information, please refer to the documentation.
         return multilingual.translate_text(text, source_language, target_language)
 
     # Infrastructure commands
-    def deploy_to_cloud(self, application_config: Dict[str, Any]):
+    def deploy_to_cloud(self, application_config: Dict[str, Any]): # pyright: ignore[reportUndefinedVariable]
         """Deploy application to all cloud providers."""
         from src.infra.multi_cloud import MultiCloudDeployment
         multi_cloud = MultiCloudDeployment()

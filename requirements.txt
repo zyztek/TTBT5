@@ -16,3 +16,17 @@ sphinx-rtd-theme>=0.5.0
 
 # Type hints for Python < 3.9
 typing-extensions>=3.7.4; python_version < "3.9"
+
+# Blockchain dependencies
+web3>=5.0.0
+substrate-interface>=1.0.0
+
+# AI dependencies
+openai>=0.27.0
+speechrecognition>=3.8.1
+pyttsx3>=2.90
+
+# Infrastructure dependencies
+kubernetes>=24.2.0
+boto3>=1.26.0
+google-cloud>=0.34.0

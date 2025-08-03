@@ -4,7 +4,7 @@ Handles deployment across multiple cloud providers (AWS, GCP, Azure).
 """
 
 import json
-import boto3
+import boto3 # pyright: ignore[reportMissingImports]
 from typing import Dict, Any
 
 class MultiCloudDeployment:
