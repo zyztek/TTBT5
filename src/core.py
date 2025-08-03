@@ -6,7 +6,7 @@ This module contains the main application logic.
 
 import os
 import sys
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -14,9 +14,6 @@ from src.config import get_config
 from src.logger import get_logger
 from src.commands import CommandProcessor
 from src.plugin_manager import PluginManager
-from datetime import datetime
-from typing import Dict, List
-from dataclasses import dataclass
 
 @dataclass
 class ApplicationState:
