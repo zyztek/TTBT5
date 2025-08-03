@@ -1,0 +1,2 @@
+[console_scripts]
+ttbt5 = src.main:main

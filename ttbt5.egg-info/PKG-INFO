@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: ttbt5
+Version: 1.0.0
+Summary: TTBT5 Application
+Author: TTBT5 Team
+Author-email: example@example.com
+Requires-Python: >=3.6
+Requires-Dist: pytest>=6.0.0
+Requires-Dist: pytest-cov>=2.10.0
+Requires-Dist: black>=21.0.0
+Requires-Dist: flake8>=3.8.0
+Requires-Dist: mypy>=0.812
+Requires-Dist: sphinx>=4.0.0
+Requires-Dist: sphinx-rtd-theme>=0.5.0
+Requires-Dist: typing-extensions>=3.7.4; python_version < "3.9"
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
