@@ -1,0 +1,22 @@
+{
+  "voice_chat": {
+    "stt_engine": "whisper",
+    "tts_engine": "elevenlabs",
+    "llm_provider": "openai",
+    "enable_streaming": true,
+    "enable_sentiment_analysis": true,
+    "enable_blockchain_integration": false,
+    "supported_languages": ["en", "es", "fr", "de", "zh"],
+    "conversation_history_limit": 100
+  },
+  "api_keys": {
+    "openai": "${OPENAI_API_KEY}",
+    "elevenlabs": "${ELEVENLABS_API_KEY}",
+    "anthropic": "${ANTHROPIC_API_KEY}"
+  },
+  "blockchain": {
+    "nft_contract_address": "${NFT_CONTRACT_ADDRESS}",
+    "polygon_private_key": "${POLYGON_PRIVATE_KEY}",
+    "polygon_network": "mumbai"
+  }
+}
