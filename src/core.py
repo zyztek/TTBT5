@@ -57,8 +57,9 @@ class TTBT5App:
     
     def register_commands(self):
         """Register available commands."""
+        # General commands
         self.command_processor.register_command("status", self.get_status)
-        self.command_processor.register_command("help", self.show_help, ["h", "?"])
+        self.command_processor.register_command("help", self.show_help)
         self.command_processor.register_command("config", self.show_config)
         self.command_processor.register_command("info", self.get_info)
         self.command_processor.register_command("load_plugin", self.load_plugin)
@@ -75,6 +76,7 @@ class TTBT5App:
         self.command_processor.register_command("transcribe_audio", self.transcribe_audio)
         self.command_processor.register_command("generate_response", self.generate_response)
         self.command_processor.register_command("process_voice_message", self.process_voice_message)
+        self.command_processor.register_command("analyze_voice_sentiment", self.analyze_voice_sentiment)
         self.command_processor.register_command("translate_text", self.translate_text)
         
         # Infrastructure commands
@@ -190,21 +192,110 @@ For more information, please refer to the documentation.
     # AI commands
     def transcribe_audio(self, audio_file_path: str, language: str = "en") -> str:
         """Transcribe audio using Whisper."""
-        from src.ai.voice_chat import VoiceChat
-        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
+        from src.ai.voice_chat import VoiceChat, VoiceChatConfig
+        
+        # Create config with API keys from application config
+        voice_config = VoiceChatConfig(
+            openai_api_key=self.config.get("openai_api_key") or self.config.get("whisper_api_key"),
+            stt_engine=self.config.get("stt_engine", "whisper")
+        )
+        
+        # Try to load from config file first, then use our config
+        voice_chat = VoiceChat(config=voice_config)
         return voice_chat.transcribe_audio(audio_file_path, language)
 
-    def generate_response(self, prompt: str, language: str = "en") -> str:
-        """Generate a response using GPT-4."""
-        from src.ai.voice_chat import VoiceChat
-        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
-        return voice_chat.generate_response(prompt, language)
+    def generate_response(self, prompt: str, language: str = "en", stream: bool = False) -> str:
+        """Generate a response using selected LLM provider."""
+        from src.ai.voice_chat import VoiceChat, VoiceChatConfig
+        
+        # Create config with API keys from application config
+        voice_config = VoiceChatConfig(
+            openai_api_key=self.config.get("openai_api_key") or self.config.get("gpt4_api_key"),
+            anthropic_api_key=self.config.get("anthropic_api_key"),
+            llm_provider=self.config.get("llm_provider", "openai"),
+            enable_streaming=stream
+        )
+        
+        # Try to load from config file first, then use our config
+        voice_chat = VoiceChat(config=voice_config)
+        return voice_chat.generate_response(prompt, language, stream=stream)
 
-    def process_voice_message(self, audio_file_path: str, user_language: str = "en") -> Dict[str, Any]:
-        """Process a complete voice message."""
-        from src.ai.voice_chat import VoiceChat
-        voice_chat = VoiceChat(self.config.get("whisper_api_key"), self.config.get("gpt4_api_key"))
-        return voice_chat.process_voice_message(audio_file_path, user_language)
+    def process_voice_message(self, audio_file_path: str, user_language: str = "en", 
+                             enable_nft: bool = False, conversation_id: str = None) -> Dict[str, Any]:
+        """Process a complete voice message with optional NFT creation."""
+        # Try to use the voice plugin if available
+        try:
+            from src.plugins.voice_plugin import VoicePlugin
+            voice_plugin = VoicePlugin()
+            voice_plugin.on_load()
+            
+            # Update plugin config with app config values
+            plugin_config = {
+                "api_keys": {
+                    "openai": self.config.get("openai_api_key") or self.config.get("whisper_api_key"),
+                    "elevenlabs": self.config.get("elevenlabs_api_key", ""),
+                    "anthropic": self.config.get("anthropic_api_key", "")
+                },
+                "enable_blockchain_integration": enable_nft,
+                "nft_contract_address": self.config.get("nft_contract_address", ""),
+                "polygon_private_key": self.config.get("polygon_private_key", ""),
+                "polygon_network": self.config.get("polygon_network", "mumbai")
+            }
+            voice_plugin.update_config(plugin_config)
+            
+            # Process audio using the plugin
+            result = voice_plugin.process_audio(
+                audio_file_path=audio_file_path,
+                user_language=user_language,
+                enable_nft=enable_nft
+            )
+            
+            # Clean up
+            voice_plugin.on_unload()
+            return result
+            
+        except (ImportError, Exception) as e:
+            self.logger.warning(f"Could not use voice plugin, falling back to direct VoiceChat: {e}")
+            
+            # Fallback to direct VoiceChat usage
+            from src.ai.voice_chat import VoiceChat, VoiceChatConfig
+            
+            # Create config with API keys from application config
+            voice_config = VoiceChatConfig(
+                openai_api_key=self.config.get("openai_api_key") or self.config.get("whisper_api_key"),
+                elevenlabs_api_key=self.config.get("elevenlabs_api_key", ""),
+                anthropic_api_key=self.config.get("anthropic_api_key", ""),
+                enable_blockchain_integration=enable_nft,
+                nft_contract_address=self.config.get("nft_contract_address", ""),
+                polygon_private_key=self.config.get("polygon_private_key", ""),
+                polygon_network=self.config.get("polygon_network", "mumbai")
+            )
+            
+            voice_chat = VoiceChat(config=voice_config)
+            return voice_chat.process_voice_message(
+                audio_file_path=audio_file_path, 
+                user_language=user_language,
+                enable_nft=enable_nft,
+                conversation_id=conversation_id
+            )
+            
+    def analyze_voice_sentiment(self, audio_file_path: str, language: str = "en") -> Dict[str, float]:
+        """Analyze sentiment of voice message."""
+        from src.ai.voice_chat import VoiceChat, VoiceChatConfig
+        
+        # Create config with API keys from application config
+        voice_config = VoiceChatConfig(
+            openai_api_key=self.config.get("openai_api_key") or self.config.get("whisper_api_key"),
+            elevenlabs_api_key=self.config.get("elevenlabs_api_key", ""),
+            anthropic_api_key=self.config.get("anthropic_api_key", ""),
+            enable_sentiment_analysis=True
+        )
+        
+        voice_chat = VoiceChat(config=voice_config)
+        # First transcribe the audio
+        transcription = voice_chat.transcribe_audio(audio_file_path, language)
+        # Then analyze sentiment
+        return voice_chat.analyze_sentiment(transcription)
 
     def translate_text(self, text: str, source_language: str, target_language: str) -> str:
         """Translate text between languages."""
