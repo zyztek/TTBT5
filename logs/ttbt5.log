@@ -418,3 +418,11 @@
 2025-08-03 21:48:11.571 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
 2025-08-03 21:48:11.571 | INFO     | src.core:run_command:151 - Executing command: transcribe_audio
 2025-08-03 21:48:11.572 | INFO     | src.core:run_command:153 - Command transcribe_audio executed successfully
+2025-08-11 05:14:42.231 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-11 05:14:42.265 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-11 05:14:42.358 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-11 05:14:42.517 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
+2025-08-11 05:16:34.163 | INFO     | src.core:__init__:36 - Initializing TTBT5 Application
+2025-08-11 05:16:34.164 | INFO     | src.core:__init__:40 - Configuration loaded
+2025-08-11 05:16:34.165 | INFO     | src.core:__init__:48 - Plugin manager initialized
+2025-08-11 05:16:34.166 | INFO     | src.core:__init__:56 - TTBT5 Application initialized successfully
