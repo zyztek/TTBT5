@@ -16,5 +16,11 @@
     "editor.quickSuggestionsDelay": 100,
     "autoGitCopilot.enabled": true,
     "AI-Keys.active.provider": "huggingface",
-    "AI-Keys.huggingFace.model": "DavidAU / Qwen3-Zero-Coder-Reasoning-0.8B-NEO-EX-GGUF "
+    "AI-Keys.huggingFace.model": "DavidAU / Qwen3-Zero-Coder-Reasoning-0.8B-NEO-EX-GGUF ",
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "gitlens.ai.largePromptWarningThreshold": 200000
 }
