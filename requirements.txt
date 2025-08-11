@@ -6,6 +6,7 @@ pydantic>=2.0.0
 pyyaml>=6.0
 watchdog>=3.0.0
 aiofiles>=23.0.0
+loguru>=0.7.0
 
 # Testing framework
 pytest>=6.0.0
@@ -58,3 +59,19 @@ python-dotenv>=1.0.0
 # Security
 cryptography>=40.0.0
 bcrypt>=4.0.0
+
+# Enhanced patterns dependencies
+weakref>=1.0.0  # For weak references in caching
+threading>=3.8.0  # For thread-safe operations
+pickle>=4.0  # For object serialization in caching
+hashlib>=3.8.0  # For cache key generation
+uuid>=1.30  # For unique ID generation
+collections>=3.8.0  # For advanced data structures
+dataclasses>=3.7.0  # For structured data classes
+enum>=1.1.0  # For enumeration types
+abc>=1.4.0  # For abstract base classes
+functools>=3.8.0  # For decorators and function tools
+inspect>=3.8.0  # For runtime inspection
+traceback>=3.8.0  # For error stack traces
+contextlib>=3.8.0  # For context managers
+datetime>=3.8.0  # For time-based operations
